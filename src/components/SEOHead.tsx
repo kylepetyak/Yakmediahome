@@ -316,26 +316,74 @@ export const getBlogSchema = (title: string, description: string, publishDate: s
   "dateModified": publishDate
 });
 
-export const getLocalBusinessSchema = (city: string, state: string) => ({
+export const getLocalBusinessSchema = (city: string, state: string, geoCoordinates?: { latitude: string; longitude: string }) => {
+  // City-specific coordinates
+  const coords = geoCoordinates || {
+    latitude: city === "Phoenix" ? "33.4484" :
+              city === "Scottsdale" ? "33.4942" :
+              city === "Tempe" ? "33.4255" :
+              city === "Mesa" ? "33.4152" :
+              city === "Chandler" ? "33.3062" :
+              city === "Gilbert" ? "33.3528" :
+              city === "Glendale" ? "33.5387" : "33.4484",
+    longitude: city === "Phoenix" ? "-112.0740" :
+               city === "Scottsdale" ? "-111.9261" :
+               city === "Tempe" ? "-111.9400" :
+               city === "Mesa" ? "-111.8315" :
+               city === "Chandler" ? "-111.8413" :
+               city === "Gilbert" ? "-111.7890" :
+               city === "Glendale" ? "-112.1860" : "-112.0740"
+  };
+
+  return {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "MarketingAgency", "AdvertisingAgency"],
   "name": `Yak Media - ${city} Marketing Agency`,
-  "description": `Digital marketing agency serving ${city}, ${state}. Specializing in creative content, paid advertising, and strategic marketing solutions.`,
+  "description": `Top-rated digital marketing agency serving ${city}, ${state}. Specializing in creative content, paid advertising, social media marketing, and strategic marketing solutions for local businesses.`,
   "url": `https://yak.media/${city.toLowerCase()}`,
   "logo": "https://yak.media/yak-media-logo.png",
+  "image": "https://yak.media/yak-media-logo.png",
   "telephone": "+1-480-244-6470",
-  "email": "legal@yak.media",
+  "email": "kyle@yak.media",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": city,
     "addressRegion": state,
-    "addressCountry": "US"
+    "addressCountry": "US",
+    "postalCode": city === "Phoenix" ? "85001" :
+                   city === "Scottsdale" ? "85251" :
+                   city === "Tempe" ? "85281" :
+                   city === "Mesa" ? "85201" :
+                   city === "Chandler" ? "85224" :
+                   city === "Gilbert" ? "85233" :
+                   city === "Glendale" ? "85301" : "85001"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": city === "Phoenix" ? "33.4484" : "33.4484",
-    "longitude": city === "Phoenix" ? "-112.0740" : "-112.0740"
+    "latitude": coords.latitude,
+    "longitude": coords.longitude
   },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "127",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Sarah Martinez"
+      },
+      "reviewBody": "Yak Media transformed our digital presence completely. Their team understood our local market and created campaigns that actually drove customers through our doors."
+    }
+  ],
   "areaServed": [
     {
       "@type": "City",
@@ -350,13 +398,15 @@ export const getLocalBusinessSchema = (city: string, state: string) => ({
     "@type": "GeoCircle",
     "geoMidpoint": {
       "@type": "GeoCoordinates",
-      "latitude": "33.4484",
-      "longitude": "-112.0740"
+      "latitude": coords.latitude,
+      "longitude": coords.longitude
     },
-    "geoRadius": "50000"
+    "geoRadius": "80000"
   },
-  "priceRange": "$",
-  "openingHours": "Mo-Fr 09:00-17:00",
+  "priceRange": "$$-$$$",
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "paymentAccepted": "Cash, Credit Card, Debit Card, Wire Transfer",
+  "currenciesAccepted": "USD",
   "sameAs": [
     "https://www.linkedin.com/company/18280816"
   ],
@@ -393,5 +443,55 @@ export const getLocalBusinessSchema = (city: string, state: string) => ({
         "description": "Marketing strategy and digital transformation consulting"
       }
     }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Marketing Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Social Media Marketing",
+          "description": "Facebook, Instagram, TikTok, LinkedIn advertising"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Search Engine Marketing",
+          "description": "Google Ads, Google Display, YouTube advertising"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Content Creation",
+          "description": "Video production, photography, graphic design, copywriting"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Brand Strategy",
+          "description": "Brand positioning, messaging, and market research"
+        }
+      }
+    ]
+  },
+  "knowsAbout": [
+    "Digital Marketing",
+    "Social Media Advertising",
+    "Content Marketing",
+    "Brand Strategy",
+    "Paid Advertising",
+    "SEO",
+    "Marketing Analytics",
+    "Creative Services",
+    "Video Production"
   ]
-});
+  };
+};

@@ -1,0 +1,78 @@
+import { useEffect } from 'react';
+
+export function PerformanceOptimizer() {
+  useEffect(() => {
+    // Preload critical resources
+    const preloadCritical = () => {
+      // Preload critical fonts
+      const fontLink = document.createElement('link');
+      fontLink.rel = 'preload';
+      fontLink.as = 'font';
+      fontLink.type = 'font/woff2';
+      fontLink.crossOrigin = 'anonymous';
+      document.head.appendChild(fontLink);
+
+      // Preload critical images (you can add your key images here)
+      const criticalImages = [
+        // Add your critical above-the-fold images here
+      ];
+
+      criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+      });
+    };
+
+    // Optimize images for better loading
+    const optimizeImages = () => {
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        if (!img.loading) {
+          img.loading = 'lazy';
+        }
+        if (!img.decoding) {
+          img.decoding = 'async';
+        }
+      });
+    };
+
+    // Remove unused CSS (simplified version)
+    const optimizeCSS = () => {
+      // Add critical CSS optimizations here if needed
+      document.documentElement.style.setProperty('--font-display', 'swap');
+    };
+
+    // Progressive enhancement for performance
+    const enhancePerformance = () => {
+      // Add performance hints
+      if ('connection' in navigator) {
+        const connection = (navigator as any).connection;
+        if (connection && connection.effectiveType === '4g') {
+          // Preload more resources on fast connections
+          document.documentElement.classList.add('fast-connection');
+        }
+      }
+
+      // Optimize for reduced motion users
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('reduce-motion');
+      }
+    };
+
+    // Run optimizations
+    preloadCritical();
+    optimizeImages();
+    optimizeCSS();
+    enhancePerformance();
+
+    // Cleanup on unmount
+    return () => {
+      // Cleanup if needed
+    };
+  }, []);
+
+  return null; // This component doesn't render anything
+}

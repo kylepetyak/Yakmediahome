@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#2563eb"/>
+  
+  <!-- Y and A letterforms in a modern style -->
+  <!-- Y -->
+  <path d="M6 6L11 14V22H9V16L5 10V6H6Z" fill="white" stroke="none"/>
+  <path d="M13 6L13 10L17 16V22H19V14L23 6H21L18 11L15 6H13Z" fill="white" stroke="none"/>
+  
+  <!-- Modern "dot" accent representing the "A" and digital/modern aspect -->
+  <circle cx="25" cy="9" r="2" fill="#60a5fa"/>
+  
+  <!-- Subtle "K" element integrated -->
+  <path d="M26 18L28 16L28 18L30 20L28 22L28 24L26 22L24 20L26 18Z" fill="#93c5fd" stroke="none"/>
+</svg>

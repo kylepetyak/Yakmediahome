@@ -30,14 +30,14 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
       {/* Blog Post Detail */}
       <section className="py-12 px-6">
         <div className="max-w-4xl mx-auto">
-          <button 
+          <button
             onClick={() => navigate('/blog')}
-            className="text-blue-500 hover:text-blue-600 mb-8 flex items-center gap-2"
+            className="text-orange-500 hover:text-orange-600 mb-8 flex items-center gap-2"
             aria-label="Go back to blog post list"
           >
             ← Back to Blog
           </button>
-          
+
           <div className="mb-8">
             <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
               <ImageWithFallback
@@ -46,9 +46,9 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
                 className="w-full h-full object-cover"
               />
             </div>
-            
+
             <div className="flex items-center gap-4 mb-4">
-              <span className="bg-blue-500 text-white text-xs px-3 py-1 rounded">
+              <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
                 BLOG
               </span>
               <span className="text-gray-600">{post.date}</span>
@@ -94,9 +94,9 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
                   return (
                     <p key={index} className="text-gray-700 mb-4 leading-relaxed">
                       {beforeText}
-                      <Button 
+                      <Button
                         onClick={onContactClick}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
+                        className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
                       >
                         let's talk
                       </Button>

@@ -34,14 +34,14 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
         {/* Blog Post Detail */}
         <section className="py-12 px-6">
           <div className="max-w-4xl mx-auto">
-            <button 
+            <button
               onClick={() => setSelectedPost(null)}
-              className="text-blue-500 hover:text-blue-600 mb-8 flex items-center gap-2"
+              className="text-orange-500 hover:text-orange-600 mb-8 flex items-center gap-2"
               aria-label="Go back to blog post list"
             >
               ← Back to Blog
             </button>
-            
+
             <div className="mb-8">
               <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
                 <ImageWithFallback
@@ -50,9 +50,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               <div className="flex items-center gap-4 mb-4">
-                <span className="bg-blue-500 text-white text-xs px-3 py-1 rounded">
+                <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
                   BLOG
                 </span>
                 <span className="text-gray-600">{selectedPost.date}</span>
@@ -98,9 +98,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                     return (
                       <p key={index} className="text-gray-700 mb-4 leading-relaxed">
                         {beforeText}
-                        <Button 
+                        <Button
                           onClick={onContactClick}
-                          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
+                          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
                         >
                           let's talk
                         </Button>
@@ -167,7 +167,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
               </SelectContent>
             </Select>
             
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 md:px-8 py-2 w-full sm:w-auto">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-2 w-full sm:w-auto">
               FILTER
             </Button>
           </div>
@@ -204,7 +204,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                       <div className="flex items-center justify-between">
                         <span className="text-xs md:text-sm text-gray-600">{post.date}</span>
                         <div className="flex space-x-2">
-                          <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                          <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
                             BLOG
                           </span>
                         </div>
@@ -261,9 +261,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                 <h3 className="text-base md:text-lg font-bold text-gray-900 mb-4">Categories</h3>
                 <div className="flex flex-wrap lg:flex-col gap-2 lg:gap-0 lg:space-y-2">
                   {categories.map((category) => (
-                    <button 
-                      key={category} 
-                      className="text-blue-500 hover:text-blue-600 font-medium text-sm md:text-base px-3 py-1 lg:px-0 lg:py-0 bg-blue-50 lg:bg-transparent rounded lg:rounded-none"
+                    <button
+                      key={category}
+                      className="text-orange-500 hover:text-orange-600 font-medium text-sm md:text-base px-3 py-1 lg:px-0 lg:py-0 bg-orange-50 lg:bg-transparent rounded lg:rounded-none"
                       aria-label={`Filter blog posts by ${category} category`}
                     >
                       {category}

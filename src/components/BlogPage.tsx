@@ -131,18 +131,115 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
     );
   }
 
+  // Get featured post (latest post)
+  const featuredPost = blogPosts[0];
+  const latestPosts = blogPosts.slice(1, 4); // Next 3 posts after featured
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-gray-900 py-12 md:py-16 px-4 md:px-6">
+      {/* Featured Post Hero Section */}
+      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-16 md:py-24 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8">
-            Blog
-          </h1>
-          
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Featured Post Content */}
+            <div className="order-2 lg:order-1">
+              <div className="inline-flex items-center gap-2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded mb-4">
+                <span>FEATURED POST</span>
+              </div>
+
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                {featuredPost.title}
+              </h1>
+
+              <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                {featuredPost.excerpt}
+              </p>
+
+              <div className="flex items-center gap-4 mb-6 text-gray-400">
+                <span className="text-sm">{featuredPost.date}</span>
+                {featuredPost.content && (
+                  <span className="flex items-center gap-1 text-sm">
+                    <Clock className="w-4 h-4" />
+                    {calculateReadingTime(featuredPost.content)} min read
+                  </span>
+                )}
+              </div>
+
+              <Button
+                onClick={() => setSelectedPost(featuredPost)}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg font-semibold"
+              >
+                Read Article
+              </Button>
+            </div>
+
+            {/* Featured Post Image */}
+            <div className="order-1 lg:order-2">
+              <div
+                className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl cursor-pointer transform hover:scale-105 transition-transform duration-300"
+                onClick={() => setSelectedPost(featuredPost)}
+              >
+                <ImageWithFallback
+                  src={optimizeImageUrl(featuredPost.image)}
+                  alt={featuredPost.title}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Posts Preview */}
+      <section className="bg-gray-50 py-12 px-4 md:px-6 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">Latest Articles</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {latestPosts.map((post) => (
+              <article
+                key={post.id}
+                onClick={() => setSelectedPost(post)}
+                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group"
+              >
+                <div className="aspect-video bg-gray-200 relative overflow-hidden">
+                  <ImageWithFallback
+                    src={optimizeImageUrl(post.image)}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-orange-500 transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <span>{post.date}</span>
+                    {post.content && (
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {calculateReadingTime(post.content)} min
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Search & Filter Section */}
+      <section className="bg-white py-8 px-4 md:px-6 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 md:gap-4">
             <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-transparent border-white text-white">
+              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-white border-gray-300">
                 <SelectValue placeholder="Select Month" />
               </SelectTrigger>
               <SelectContent>
@@ -156,9 +253,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                 <SelectItem value="august">August</SelectItem>
               </SelectContent>
             </Select>
-            
+
             <Select value={selectedYear} onValueChange={setSelectedYear}>
-              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-transparent border-white text-white">
+              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-white border-gray-300">
                 <SelectValue placeholder="Select Year" />
               </SelectTrigger>
               <SelectContent>
@@ -167,7 +264,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                 <SelectItem value="2023">2023</SelectItem>
               </SelectContent>
             </Select>
-            
+
             <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-2 w-full sm:w-auto">
               FILTER
             </Button>
@@ -175,9 +272,11 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* All Posts Section */}
       <section className="py-12 px-4 md:px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">All Posts</h2>
+
           {/* Mobile: Stack vertically, Desktop: Side by side */}
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Blog Posts Grid */}

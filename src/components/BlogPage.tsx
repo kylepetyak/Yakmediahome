@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Input } from "./ui/input";
-import { Search } from "lucide-react";
+import { Search, Clock } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { blogPosts, recentlyPublished } from './blogData';
+import { optimizeImageUrl, calculateReadingTime } from './SEOHead';
 
 const categories = ["B2B", "Blog", "Brand"];
 
@@ -183,31 +184,38 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
             <div className="flex-1 order-2 lg:order-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                 {blogPosts.map((post) => (
-                  <article 
-                    key={post.id} 
+                  <article
+                    key={post.id}
                     onClick={() => setSelectedPost(post)}
                     className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                   >
                     <div className="aspect-video bg-gray-200 relative overflow-hidden">
                       <ImageWithFallback
-                        src={post.image}
+                        src={optimizeImageUrl(post.image)}
                         alt={post.title}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     </div>
-                    
+
                     <div className="p-4 md:p-6">
                       <h3 className="text-sm md:text-base font-bold text-gray-900 mb-3 leading-tight">
                         {post.title}
                       </h3>
-                      
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs md:text-sm text-gray-600">{post.date}</span>
-                        <div className="flex space-x-2">
-                          <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                            BLOG
-                          </span>
+
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-2 text-xs md:text-sm text-gray-600">
+                          <span>{post.date}</span>
+                          {post.content && (
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {calculateReadingTime(post.content)} min
+                            </span>
+                          )}
                         </div>
+                        <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
+                          BLOG
+                        </span>
                       </div>
                     </div>
                   </article>
@@ -240,9 +248,10 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                     <div key={index} className="flex space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -m-2">
                       <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-200 rounded overflow-hidden flex-shrink-0">
                         <ImageWithFallback
-                          src={article.image}
+                          src={optimizeImageUrl(article.image)}
                           alt={article.title}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       </div>
                       <div className="flex-1 min-w-0">

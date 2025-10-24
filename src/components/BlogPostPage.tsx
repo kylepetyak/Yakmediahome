@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { blogPosts } from './blogData';
+import { SEOHead, getBlogSchema, getBreadcrumbSchema, optimizeImageUrl, calculateReadingTime, getWordCount } from './SEOHead';
+import { Clock } from 'lucide-react';
 
 interface BlogPostPageProps {
   onContactClick?: () => void;
@@ -25,8 +27,28 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
     return null; // Will redirect
   }
 
+  // Calculate SEO metrics
+  const readingTime = post.content ? calculateReadingTime(post.content) : 5;
+  const wordCount = post.content ? getWordCount(post.content) : 0;
+
+  // Combine schemas for maximum SEO impact
+  const combinedSchema = {
+    "@graph": [
+      getBlogSchema(post.title, post.excerpt || '', post.date, post.image, wordCount),
+      getBreadcrumbSchema(post.title, post.slug)
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title={post.title}
+        description={post.excerpt || ''}
+        path={`/blog/${post.slug}`}
+        type="article"
+        image={optimizeImageUrl(post.image)}
+        schemaData={combinedSchema}
+      />
       {/* Blog Post Detail */}
       <section className="py-12 px-6">
         <div className="max-w-4xl mx-auto">
@@ -38,20 +60,39 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
             ← Back to Blog
           </button>
 
+          {/* Breadcrumbs for better navigation and SEO */}
+          <nav className="text-sm text-gray-600 mb-6" aria-label="Breadcrumb">
+            <ol className="flex items-center space-x-2">
+              <li><a href="/" className="hover:text-orange-500">Home</a></li>
+              <li><span className="text-gray-400">/</span></li>
+              <li><a href="/blog" className="hover:text-orange-500">Blog</a></li>
+              <li><span className="text-gray-400">/</span></li>
+              <li className="text-gray-900 font-medium">{post.title.substring(0, 50)}{post.title.length > 50 ? '...' : ''}</li>
+            </ol>
+          </nav>
+
           <div className="mb-8">
             <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
               <ImageWithFallback
-                src={post.image}
+                src={optimizeImageUrl(post.image)}
                 alt={post.title}
                 className="w-full h-full object-cover"
+                loading="eager"
               />
             </div>
 
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4 mb-4 flex-wrap">
               <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
                 BLOG
               </span>
               <span className="text-gray-600">{post.date}</span>
+              <span className="flex items-center gap-1 text-gray-600 text-sm">
+                <Clock className="w-4 h-4" />
+                {readingTime} min read
+              </span>
+              <span className="text-gray-600 text-sm">
+                {wordCount.toLocaleString()} words
+              </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">

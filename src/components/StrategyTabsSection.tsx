@@ -99,29 +99,31 @@ export function StrategyTabsSection({ onContactClick }: StrategyTabsSectionProps
                 </Button>
               </div>
 
-              {/* Right Side - Abstract Strategy Illustration */}
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-12 flex items-center justify-center">
-                <div className="w-full h-full flex items-center justify-center">
-                  {/* Strategy Network Illustration */}
-                  <div className="relative w-64 h-64">
-                    {/* Central Hub */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
-                      <div className="w-8 h-8 bg-white rounded-full"></div>
+              {/* Right Side - Real Strategy Results */}
+              <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-12 flex items-center justify-center">
+                <div className="w-full space-y-6">
+                  {/* Strategy Impact */}
+                  <div className="bg-gray-700/50 rounded-xl p-6 border border-orange-500/20">
+                    <div className="text-orange-400 text-sm font-semibold mb-1">REVENUE GROWTH</div>
+                    <div className="text-white text-5xl font-black">+250%</div>
+                    <div className="text-gray-400 text-sm mt-2">Average client increase in 12 months</div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gray-700/50 rounded-xl p-4 border border-blue-500/20">
+                      <div className="text-blue-400 text-xs font-semibold mb-1">FASTER LAUNCH</div>
+                      <div className="text-white text-3xl font-black">3-5 Days</div>
                     </div>
-                    
-                    {/* Connected Nodes */}
-                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-cyan-400 rounded-full animate-pulse"></div>
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-blue-300 rounded-full animate-pulse delay-300"></div>
-                    <div className="absolute top-1/2 left-8 transform -translate-y-1/2 w-10 h-10 bg-blue-600 rounded-full animate-pulse delay-500"></div>
-                    <div className="absolute top-1/2 right-8 transform -translate-y-1/2 w-10 h-10 bg-cyan-300 rounded-full animate-pulse delay-700"></div>
-                    
-                    {/* Connection Lines */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-32 h-0.5 bg-blue-200 absolute -top-0.25 -left-16 rotate-45"></div>
-                      <div className="w-32 h-0.5 bg-blue-200 absolute -top-0.25 -left-16 -rotate-45"></div>
-                      <div className="w-32 h-0.5 bg-blue-200 absolute -top-0.25 -left-16"></div>
-                      <div className="w-32 h-0.5 bg-blue-200 absolute -top-0.25 -left-16 rotate-90"></div>
+                    <div className="bg-gray-700/50 rounded-xl p-4 border border-green-500/20">
+                      <div className="text-green-400 text-xs font-semibold mb-1">MARKET SHARE</div>
+                      <div className="text-white text-3xl font-black">+38%</div>
                     </div>
+                  </div>
+
+                  <div className="bg-gray-700/50 rounded-xl p-4 border border-purple-500/20">
+                    <div className="text-purple-400 text-xs font-semibold mb-1">CLIENT RETENTION</div>
+                    <div className="text-white text-2xl font-black">94%</div>
+                    <div className="text-gray-400 text-xs mt-1">Year-over-year</div>
                   </div>
                 </div>
               </div>

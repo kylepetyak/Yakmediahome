@@ -134,25 +134,31 @@ export function MediaTabsSection({ onContactClick }: MediaTabsSectionProps) {
                 </Button>
               </div>
 
-              {/* Right Side - Graphic/Illustration */}
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-12 flex items-center justify-center">
-                <div className="w-full h-full flex items-center justify-center">
-                  {/* Abstract Illustration Placeholder */}
-                  <div className="relative w-64 h-64">
-                    {/* Main Circle */}
-                    <div className="absolute inset-0 bg-blue-100 rounded-full flex items-center justify-center">
-                      <div className="w-32 h-32 bg-blue-500 rounded-full flex items-center justify-center">
-                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                          <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
-                        </div>
-                      </div>
+              {/* Right Side - Real Performance Metrics */}
+              <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-12 flex items-center justify-center">
+                <div className="w-full space-y-6">
+                  {/* Performance Stats */}
+                  <div className="bg-gray-700/50 rounded-xl p-6 border border-orange-500/20">
+                    <div className="text-orange-400 text-sm font-semibold mb-1">AVERAGE CLIENT ROI</div>
+                    <div className="text-white text-5xl font-black">4.2x</div>
+                    <div className="text-gray-400 text-sm mt-2">Across all paid channels</div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gray-700/50 rounded-xl p-4 border border-blue-500/20">
+                      <div className="text-blue-400 text-xs font-semibold mb-1">CPA REDUCTION</div>
+                      <div className="text-white text-3xl font-black">-42%</div>
                     </div>
-                    
-                    {/* Orbiting Elements */}
-                    <div className="absolute top-4 right-4 w-12 h-12 bg-cyan-400 rounded-full animate-pulse"></div>
-                    <div className="absolute bottom-4 left-4 w-8 h-8 bg-blue-300 rounded-full animate-pulse delay-300"></div>
-                    <div className="absolute top-1/2 left-0 w-6 h-6 bg-blue-600 rounded-full animate-pulse delay-700"></div>
-                    <div className="absolute top-1/2 right-0 w-10 h-10 bg-cyan-300 rounded-full animate-pulse delay-500"></div>
+                    <div className="bg-gray-700/50 rounded-xl p-4 border border-green-500/20">
+                      <div className="text-green-400 text-xs font-semibold mb-1">CTR INCREASE</div>
+                      <div className="text-white text-3xl font-black">+180%</div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-700/50 rounded-xl p-4 border border-purple-500/20">
+                    <div className="text-purple-400 text-xs font-semibold mb-1">AD SPEND MANAGED</div>
+                    <div className="text-white text-2xl font-black">$2.3M+</div>
+                    <div className="text-gray-400 text-xs mt-1">Last 12 months</div>
                   </div>
                 </div>
               </div>

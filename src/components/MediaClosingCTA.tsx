@@ -18,9 +18,9 @@ export function MediaClosingCTA({ onContactClick }: MediaClosingCTAProps) {
           Let's build a media system that grows your business.
         </p>
 
-        <Button 
+        <Button
           onClick={onContactClick}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-4 text-lg font-medium"
+          className="bg-orange-500 hover:bg-orange-600 text-white px-12 py-4 text-lg font-medium"
         >
           Work With Us
         </Button>

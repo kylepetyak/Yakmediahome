@@ -46,7 +46,7 @@ export function ServicesTabs({ serviceType }: ServicesTabsProps) {
               onClick={() => setActiveTab(tab.id)}
               className={`px-8 py-4 font-medium transition-all duration-200 ${
                 activeTab === tab.id
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-orange-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
               aria-label={`View ${tab.title} content`}
@@ -65,35 +65,47 @@ export function ServicesTabs({ serviceType }: ServicesTabsProps) {
                 {activeTabData.title}
               </h3>
               
-              <p className="text-xl text-blue-500 mb-6">
+              <p className="text-xl text-orange-500 font-semibold mb-6">
                 {activeTabData.subtitle}
               </p>
-              
+
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 {activeTabData.description}
               </p>
-              
+
               <ul className="space-y-3 mb-8">
                 {activeTabData.features.map((feature, index) => (
                   <li key={index} className="flex items-center text-gray-700">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
                     {feature}
                   </li>
                 ))}
               </ul>
-              
-              <Button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 flex items-center gap-2">
+
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 flex items-center gap-2">
                 Learn More
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
-            
-            <div className="bg-gray-100 h-96 rounded-lg flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <div className="w-24 h-24 bg-blue-500 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <div className="w-12 h-12 bg-white rounded"></div>
+
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 h-96 rounded-lg flex items-center justify-center">
+              <div className="text-center">
+                <div className="space-y-4">
+                  <div className="bg-gray-700/50 rounded-xl p-6 border border-orange-500/20">
+                    <div className="text-orange-400 text-xs font-semibold mb-1">ENGAGEMENT RATE</div>
+                    <div className="text-white text-4xl font-black">+320%</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gray-700/50 rounded-lg p-4 border border-blue-500/20">
+                      <div className="text-blue-400 text-xs font-semibold mb-1">REACH</div>
+                      <div className="text-white text-2xl font-black">2.3M</div>
+                    </div>
+                    <div className="bg-gray-700/50 rounded-lg p-4 border border-green-500/20">
+                      <div className="text-green-400 text-xs font-semibold mb-1">CONVERSIONS</div>
+                      <div className="text-white text-2xl font-black">+180%</div>
+                    </div>
+                  </div>
                 </div>
-                <p>Service Visualization</p>
               </div>
             </div>
           </div>

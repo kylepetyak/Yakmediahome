@@ -39,12 +39,15 @@ export function ServicesShowcase({ serviceType }: ServicesShowcaseProps) {
               {/* Phone Mockup */}
               <div className="relative mx-auto mb-6 w-64 h-96">
                 <div className="absolute inset-0 bg-gray-900 rounded-[2.5rem] p-2">
-                  <div className="w-full h-full bg-gray-100 rounded-[2rem] flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-blue-500 rounded-lg mx-auto mb-4"></div>
+                  <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 rounded-[2rem] flex items-center justify-center">
+                    <div className="text-center p-4">
+                      <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                        <div className="text-white text-2xl font-black">{mockup.id}</div>
+                      </div>
                       <div className="space-y-2">
-                        <div className="h-3 bg-gray-300 rounded w-24 mx-auto"></div>
-                        <div className="h-3 bg-gray-300 rounded w-16 mx-auto"></div>
+                        <div className="h-2 bg-orange-500 rounded w-20 mx-auto"></div>
+                        <div className="h-2 bg-gray-600 rounded w-16 mx-auto"></div>
+                        <div className="h-2 bg-gray-700 rounded w-12 mx-auto"></div>
                       </div>
                     </div>
                   </div>
@@ -52,11 +55,11 @@ export function ServicesShowcase({ serviceType }: ServicesShowcaseProps) {
                 {/* Screen reflection */}
                 <div className="absolute top-4 left-4 right-4 h-1/3 bg-gradient-to-b from-white/20 to-transparent rounded-t-[1.5rem] pointer-events-none"></div>
               </div>
-              
+
               <h3 className="text-xl font-bold text-gray-900 mb-2">
                 {mockup.title}
               </h3>
-              <p className="text-blue-500 font-medium">
+              <p className="text-orange-500 font-semibold">
                 {mockup.description}
               </p>
             </div>

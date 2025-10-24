@@ -1,7 +1,5 @@
 import { Button } from './ui/button';
 
-import { Button } from './ui/button';
-
 interface StrategyClosingCTAProps {
   onContactClick?: () => void;
 }

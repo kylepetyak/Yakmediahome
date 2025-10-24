@@ -6,6 +6,9 @@ import { Search, Clock } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { blogPosts, recentlyPublished } from './blogData';
 import { optimizeImageUrl, calculateReadingTime } from './SEOHead';
+import { SocialShare, StickySocialShare } from './SocialShare';
+import { NewsletterGHLForm } from './GHLForm';
+import { trackBlogPostRead } from '../utils/ghlTracking';
 
 const categories = ["B2B", "Blog", "Brand"];
 
@@ -28,10 +31,33 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
     }
   }, [postSlug]);
 
+  // Track blog post views in GHL
+  useEffect(() => {
+    if (selectedPost) {
+      const readingTime = selectedPost.content ? calculateReadingTime(selectedPost.content) : undefined;
+      const wordCount = selectedPost.content ? selectedPost.content.split(/\s+/).length : undefined;
+
+      trackBlogPostRead({
+        postTitle: selectedPost.title,
+        postSlug: selectedPost.slug || selectedPost.id.toString(),
+        postCategory: 'blog',
+        readingTime,
+        wordCount
+      });
+    }
+  }, [selectedPost]);
+
   // If a post is selected, show the blog post detail view
   if (selectedPost) {
     return (
       <div className="min-h-screen bg-white">
+        {/* Sticky Social Share Sidebar */}
+        <StickySocialShare
+          url={`/blog/${selectedPost.slug}`}
+          title={selectedPost.title}
+          description={selectedPost.excerpt}
+        />
+
         {/* Blog Post Detail */}
         <section className="py-12 px-6">
           <div className="max-w-4xl mx-auto">
@@ -123,6 +149,16 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                   
                   return <p key={index} className="text-gray-700 mb-4 leading-relaxed">{paragraph}</p>;
                 })}
+
+                {/* Social Share Buttons */}
+                <div className="mt-12 pt-8 border-t border-gray-200">
+                  <SocialShare
+                    url={`/blog/${selectedPost.slug}`}
+                    title={selectedPost.title}
+                    description={selectedPost.excerpt}
+                    layout="horizontal"
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -363,6 +399,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                   ))}
                 </div>
               </div>
+
+              {/* Newsletter Signup with GHL Integration */}
+              <NewsletterGHLForm formId="YOUR_NEWSLETTER_FORM_ID" />
 
               {/* Categories */}
               <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm">

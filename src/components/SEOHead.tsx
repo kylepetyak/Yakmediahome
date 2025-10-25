@@ -13,7 +13,7 @@ function getKeywordsForPath(path: string): string {
   const baseKeywords = "digital marketing agency, Phoenix marketing, Arizona advertising, creative services, media planning, strategy consulting, social media marketing, paid advertising, brand strategy, content creation";
   
   if (path.includes('/blog')) {
-    return `${baseKeywords}, marketing blog, digital marketing insights, industry news, marketing trends`;
+    return `${baseKeywords}, marketing agency blog, digital marketing tips, social media marketing tips, paid advertising strategies, tiktok marketing strategy, facebook ads tips, google ads optimization, creative advertising examples, marketing ROI, content marketing examples, B2B marketing strategies, performance marketing metrics`;
   }
   if (path.includes('/services')) {
     return `${baseKeywords}, marketing services, advertising services, creative agency, media agency`;
@@ -251,6 +251,64 @@ function updateSchema(schemaData: any) {
   document.head.appendChild(script);
 }
 
+// Helper Functions for SEO Optimization
+export function convertToISODate(humanDate: string): string {
+  // Convert "September 15, 2025" to "2025-09-15T09:00:00-07:00"
+  const date = new Date(humanDate);
+  if (isNaN(date.getTime())) {
+    return new Date().toISOString();
+  }
+  return date.toISOString();
+}
+
+export function optimizeImageUrl(url: string): string {
+  // Optimize Unsplash URLs for performance
+  if (url.includes('images.unsplash.com')) {
+    const hasParams = url.includes('?');
+    const separator = hasParams ? '&' : '?';
+    return `${url}${separator}w=1200&h=630&q=75&auto=format&fit=crop`;
+  }
+  return url;
+}
+
+export function calculateReadingTime(content: string): number {
+  // Average reading speed: 200 words per minute
+  const wordsPerMinute = 200;
+  const wordCount = content.trim().split(/\s+/).length;
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+  return minutes;
+}
+
+export function getWordCount(content: string): number {
+  return content.trim().split(/\s+/).length;
+}
+
+// Breadcrumb schema for blog posts
+export const getBreadcrumbSchema = (postTitle: string, postSlug: string) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yak.media"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yak.media/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": postTitle,
+      "item": `https://yak.media/blog/${postSlug}`
+    }
+  ]
+});
+
 // Pre-defined schema data for different page types
 export const getCompanySchema = () => ({
   "@context": "https://schema.org",
@@ -295,26 +353,47 @@ export const getServiceSchema = (serviceName: string, description: string) => ({
   "serviceType": "Digital Marketing"
 });
 
-export const getBlogSchema = (title: string, description: string, publishDate: string) => ({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": title,
-  "description": description,
-  "author": {
-    "@type": "Organization",
-    "name": "Yak Media"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Yak Media",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://yak.media/yak-media-logo.png"
+export const getBlogSchema = (title: string, description: string, publishDate: string, image?: string, wordCount?: number) => {
+  // Convert human-readable date to ISO format
+  const isoDate = convertToISODate(publishDate);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title.substring(0, 110), // Google truncates at 110 chars
+    "description": description,
+    "image": image ? [optimizeImageUrl(image)] : ["https://yak.media/yak-media-logo.png"],
+    "datePublished": isoDate,
+    "dateModified": isoDate,
+    "author": {
+      "@type": "Organization",
+      "name": "Yak Media",
+      "url": "https://yak.media"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Yak Media",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://yak.media/yak-media-logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://yak.media/blog/${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+    },
+    "keywords": "digital marketing, marketing agency, paid advertising, social media marketing, content creation, Phoenix marketing",
+    "wordCount": wordCount || 1500,
+    "inLanguage": "en-US",
+    "articleSection": "Marketing",
+    "about": {
+      "@type": "Thing",
+      "name": "Digital Marketing"
     }
-  },
-  "datePublished": publishDate,
-  "dateModified": publishDate
-});
+  };
+};
 
 export const getLocalBusinessSchema = (city: string, state: string, geoCoordinates?: { latitude: string; longitude: string }) => {
   // City-specific coordinates

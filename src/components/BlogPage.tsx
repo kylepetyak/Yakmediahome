@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Input } from "./ui/input";
-import { Search } from "lucide-react";
+import { Search, Clock } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { blogPosts, recentlyPublished } from './blogData';
+import { optimizeImageUrl, calculateReadingTime } from './SEOHead';
+import { SocialShare, StickySocialShare } from './SocialShare';
+import { NewsletterGHLForm } from './GHLForm';
+import { trackBlogPostRead } from '../utils/ghlTracking';
 
 const categories = ["B2B", "Blog", "Brand"];
 
@@ -27,21 +31,44 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
     }
   }, [postSlug]);
 
+  // Track blog post views in GHL
+  useEffect(() => {
+    if (selectedPost) {
+      const readingTime = selectedPost.content ? calculateReadingTime(selectedPost.content) : undefined;
+      const wordCount = selectedPost.content ? selectedPost.content.split(/\s+/).length : undefined;
+
+      trackBlogPostRead({
+        postTitle: selectedPost.title,
+        postSlug: selectedPost.slug || selectedPost.id.toString(),
+        postCategory: 'blog',
+        readingTime,
+        wordCount
+      });
+    }
+  }, [selectedPost]);
+
   // If a post is selected, show the blog post detail view
   if (selectedPost) {
     return (
       <div className="min-h-screen bg-white">
+        {/* Sticky Social Share Sidebar */}
+        <StickySocialShare
+          url={`/blog/${selectedPost.slug}`}
+          title={selectedPost.title}
+          description={selectedPost.excerpt}
+        />
+
         {/* Blog Post Detail */}
         <section className="py-12 px-6">
           <div className="max-w-4xl mx-auto">
-            <button 
+            <button
               onClick={() => setSelectedPost(null)}
-              className="text-blue-500 hover:text-blue-600 mb-8 flex items-center gap-2"
+              className="text-orange-500 hover:text-orange-600 mb-8 flex items-center gap-2"
               aria-label="Go back to blog post list"
             >
               ← Back to Blog
             </button>
-            
+
             <div className="mb-8">
               <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
                 <ImageWithFallback
@@ -50,9 +77,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               <div className="flex items-center gap-4 mb-4">
-                <span className="bg-blue-500 text-white text-xs px-3 py-1 rounded">
+                <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
                   BLOG
                 </span>
                 <span className="text-gray-600">{selectedPost.date}</span>
@@ -98,9 +125,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                     return (
                       <p key={index} className="text-gray-700 mb-4 leading-relaxed">
                         {beforeText}
-                        <Button 
+                        <Button
                           onClick={onContactClick}
-                          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
+                          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
                         >
                           let's talk
                         </Button>
@@ -122,6 +149,16 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                   
                   return <p key={index} className="text-gray-700 mb-4 leading-relaxed">{paragraph}</p>;
                 })}
+
+                {/* Social Share Buttons */}
+                <div className="mt-12 pt-8 border-t border-gray-200">
+                  <SocialShare
+                    url={`/blog/${selectedPost.slug}`}
+                    title={selectedPost.title}
+                    description={selectedPost.excerpt}
+                    layout="horizontal"
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -130,18 +167,115 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
     );
   }
 
+  // Get featured post (latest post)
+  const featuredPost = blogPosts[0];
+  const latestPosts = blogPosts.slice(1, 4); // Next 3 posts after featured
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-gray-900 py-12 md:py-16 px-4 md:px-6">
+      {/* Featured Post Hero Section */}
+      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-16 md:py-24 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8">
-            Blog
-          </h1>
-          
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Featured Post Content */}
+            <div className="order-2 lg:order-1">
+              <div className="inline-flex items-center gap-2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded mb-4">
+                <span>FEATURED POST</span>
+              </div>
+
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                {featuredPost.title}
+              </h1>
+
+              <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                {featuredPost.excerpt}
+              </p>
+
+              <div className="flex items-center gap-4 mb-6 text-gray-400">
+                <span className="text-sm">{featuredPost.date}</span>
+                {featuredPost.content && (
+                  <span className="flex items-center gap-1 text-sm">
+                    <Clock className="w-4 h-4" />
+                    {calculateReadingTime(featuredPost.content)} min read
+                  </span>
+                )}
+              </div>
+
+              <Button
+                onClick={() => setSelectedPost(featuredPost)}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg font-semibold"
+              >
+                Read Article
+              </Button>
+            </div>
+
+            {/* Featured Post Image */}
+            <div className="order-1 lg:order-2">
+              <div
+                className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl cursor-pointer transform hover:scale-105 transition-transform duration-300"
+                onClick={() => setSelectedPost(featuredPost)}
+              >
+                <ImageWithFallback
+                  src={optimizeImageUrl(featuredPost.image)}
+                  alt={featuredPost.title}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Posts Preview */}
+      <section className="bg-gray-50 py-12 px-4 md:px-6 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">Latest Articles</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {latestPosts.map((post) => (
+              <article
+                key={post.id}
+                onClick={() => setSelectedPost(post)}
+                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group"
+              >
+                <div className="aspect-video bg-gray-200 relative overflow-hidden">
+                  <ImageWithFallback
+                    src={optimizeImageUrl(post.image)}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-orange-500 transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <span>{post.date}</span>
+                    {post.content && (
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {calculateReadingTime(post.content)} min
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Search & Filter Section */}
+      <section className="bg-white py-8 px-4 md:px-6 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 md:gap-4">
             <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-transparent border-white text-white">
+              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-white border-gray-300">
                 <SelectValue placeholder="Select Month" />
               </SelectTrigger>
               <SelectContent>
@@ -155,9 +289,9 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                 <SelectItem value="august">August</SelectItem>
               </SelectContent>
             </Select>
-            
+
             <Select value={selectedYear} onValueChange={setSelectedYear}>
-              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-transparent border-white text-white">
+              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-white border-gray-300">
                 <SelectValue placeholder="Select Year" />
               </SelectTrigger>
               <SelectContent>
@@ -166,48 +300,57 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                 <SelectItem value="2023">2023</SelectItem>
               </SelectContent>
             </Select>
-            
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 md:px-8 py-2 w-full sm:w-auto">
+
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-2 w-full sm:w-auto">
               FILTER
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* All Posts Section */}
       <section className="py-12 px-4 md:px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">All Posts</h2>
+
           {/* Mobile: Stack vertically, Desktop: Side by side */}
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Blog Posts Grid */}
             <div className="flex-1 order-2 lg:order-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                 {blogPosts.map((post) => (
-                  <article 
-                    key={post.id} 
+                  <article
+                    key={post.id}
                     onClick={() => setSelectedPost(post)}
                     className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                   >
                     <div className="aspect-video bg-gray-200 relative overflow-hidden">
                       <ImageWithFallback
-                        src={post.image}
+                        src={optimizeImageUrl(post.image)}
                         alt={post.title}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     </div>
-                    
+
                     <div className="p-4 md:p-6">
                       <h3 className="text-sm md:text-base font-bold text-gray-900 mb-3 leading-tight">
                         {post.title}
                       </h3>
-                      
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs md:text-sm text-gray-600">{post.date}</span>
-                        <div className="flex space-x-2">
-                          <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                            BLOG
-                          </span>
+
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-2 text-xs md:text-sm text-gray-600">
+                          <span>{post.date}</span>
+                          {post.content && (
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {calculateReadingTime(post.content)} min
+                            </span>
+                          )}
                         </div>
+                        <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
+                          BLOG
+                        </span>
                       </div>
                     </div>
                   </article>
@@ -240,9 +383,10 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                     <div key={index} className="flex space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -m-2">
                       <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-200 rounded overflow-hidden flex-shrink-0">
                         <ImageWithFallback
-                          src={article.image}
+                          src={optimizeImageUrl(article.image)}
                           alt={article.title}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -256,14 +400,17 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                 </div>
               </div>
 
+              {/* Newsletter Signup with GHL Integration */}
+              <NewsletterGHLForm formId="89KqVS7tZXeamuRy9uMm" />
+
               {/* Categories */}
               <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm">
                 <h3 className="text-base md:text-lg font-bold text-gray-900 mb-4">Categories</h3>
                 <div className="flex flex-wrap lg:flex-col gap-2 lg:gap-0 lg:space-y-2">
                   {categories.map((category) => (
-                    <button 
-                      key={category} 
-                      className="text-blue-500 hover:text-blue-600 font-medium text-sm md:text-base px-3 py-1 lg:px-0 lg:py-0 bg-blue-50 lg:bg-transparent rounded lg:rounded-none"
+                    <button
+                      key={category}
+                      className="text-orange-500 hover:text-orange-600 font-medium text-sm md:text-base px-3 py-1 lg:px-0 lg:py-0 bg-orange-50 lg:bg-transparent rounded lg:rounded-none"
                       aria-label={`Filter blog posts by ${category} category`}
                     >
                       {category}

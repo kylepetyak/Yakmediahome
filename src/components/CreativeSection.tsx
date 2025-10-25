@@ -1,82 +1,104 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Button } from "./ui/button";
-import { Play, Image, Megaphone } from "lucide-react";
-
-const rotatingIcons = [
-  { icon: Play, color: 'text-pink-500' },
-  { icon: Image, color: 'text-cyan-400' },
-  { icon: Megaphone, color: 'text-purple-500' }
-];
+import { Video, Camera, PenTool, Sparkles } from "lucide-react";
 
 interface CreativeSectionProps {
   onLearnMoreClick?: () => void;
 }
 
 export function CreativeSection({ onLearnMoreClick }: CreativeSectionProps) {
-  const [currentIconIndex, setCurrentIconIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIconIndex((prev) => (prev + 1) % rotatingIcons.length);
-    }, 3000); // Change every 3 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const CurrentIcon = rotatingIcons[currentIconIndex].icon;
+  const contentTypes = [
+    { icon: Video, label: 'Short-Form Video', color: 'from-red-500 to-orange-500' },
+    { icon: Camera, label: 'Photography', color: 'from-purple-500 to-pink-500' },
+    { icon: PenTool, label: 'Graphic Design', color: 'from-blue-500 to-cyan-500' },
+    { icon: Sparkles, label: 'Brand Content', color: 'from-green-500 to-emerald-500' },
+  ];
 
   return (
-    <section className="bg-gray-900 py-24 px-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex-1 max-w-2xl text-white">
-          <div className="text-sm font-bold text-gray-400 mb-4 tracking-wider">
-            CREATIVE
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            We're built for today's attention.
-          </h2>
-          
-          <p className="text-gray-300 leading-relaxed mb-8 max-w-xl">
-            Our focus is simple: create content that stops the scroll, drives conversations, and actually moves the needle for your brand. Every piece of creative is rooted in how people behave online—not just what we think looks good. That means testing, learning, and doubling down on what the audience responds to.
-          </p>
-          
-          <p className="text-gray-300 leading-relaxed mb-8 max-w-xl">
-            From short-form videos on TikTok and LinkedIn to paid campaigns across Meta and Google, we blend organic storytelling with smart media buying to make sure your message gets seen by the right people, at the right time, in the right way.
-          </p>
-          
-          <p className="text-gray-300 leading-relaxed mb-8 max-w-xl">
-            We don't separate "creative" from "media"—because in 2025, they have to work together. A social post can live as an ad, and an ad can feel like content. That's the game we play, and we play to win.
-          </p>
-          
-          <Button 
-            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3"
-            onClick={onLearnMoreClick}
-          >
-            LEARN MORE
-          </Button>
-        </div>
-        
-        <div className="hidden lg:block flex-1 max-w-md">
-          <div className="relative flex items-center justify-center">
-            <div className="w-64 h-64 border-4 border-white rounded-full flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentIconIndex}
-                  initial={{ opacity: 0, rotateY: 90 }}
-                  animate={{ opacity: 1, rotateY: 0 }}
-                  exit={{ opacity: 0, rotateY: -90 }}
-                  transition={{ 
-                    duration: 0.5,
-                    ease: "easeInOut"
-                  }}
-                  className={`${rotatingIcons[currentIconIndex].color}`}
-                >
-                  <CurrentIcon className="w-32 h-32 fill-current" />
-                </motion.div>
-              </AnimatePresence>
+    <section className="bg-gradient-to-br from-gray-50 to-white py-24 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Content Types Grid */}
+          <div>
+            <div className="grid grid-cols-2 gap-4">
+              {contentTypes.map((type, index) => {
+                const Icon = type.icon;
+                return (
+                  <motion.div
+                    key={type.label}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group"
+                  >
+                    <div className={`bg-gradient-to-br ${type.color} p-8 rounded-2xl aspect-square flex flex-col items-center justify-center text-center text-white hover:scale-105 transition-transform duration-300 shadow-lg`}>
+                      <Icon className="w-12 h-12 mb-4" />
+                      <h3 className="font-bold text-lg">{type.label}</h3>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
+          </div>
+
+          {/* Text Content */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-block bg-orange-100 text-orange-600 text-sm font-bold px-4 py-2 rounded-full mb-6">
+                CREATIVE
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                Content That Stops the Scroll
+              </h2>
+
+              <p className="text-xl text-gray-600 leading-relaxed mb-6">
+                We create thumb-stopping content designed for how people actually consume media in 2025. Every piece is built to perform—whether it's a 15-second TikTok or a full brand campaign.
+              </p>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-white text-sm font-bold">✓</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Platform-Native Creation</h4>
+                    <p className="text-gray-600">We don't just repurpose—we create specifically for TikTok, Instagram, LinkedIn, YouTube</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-white text-sm font-bold">✓</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Data-Informed Creativity</h4>
+                    <p className="text-gray-600">Every creative decision is backed by performance data from real campaigns</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-white text-sm font-bold">✓</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Rapid Production</h4>
+                    <p className="text-gray-600">Fast turnaround without sacrificing quality—because timing matters online</p>
+                  </div>
+                </div>
+              </div>
+
+              <Button
+                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 text-lg font-bold shadow-lg"
+                onClick={onLearnMoreClick}
+              >
+                View Our Creative Work
+              </Button>
+            </motion.div>
           </div>
         </div>
       </div>

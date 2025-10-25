@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { blogPosts } from './blogData';
+import { SEOHead, getBlogSchema, getBreadcrumbSchema, optimizeImageUrl, calculateReadingTime, getWordCount } from './SEOHead';
+import { Clock } from 'lucide-react';
+import { RelatedPosts } from './RelatedPosts';
 
 interface BlogPostPageProps {
   onContactClick?: () => void;
@@ -25,33 +28,72 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
     return null; // Will redirect
   }
 
+  // Calculate SEO metrics
+  const readingTime = post.content ? calculateReadingTime(post.content) : 5;
+  const wordCount = post.content ? getWordCount(post.content) : 0;
+
+  // Combine schemas for maximum SEO impact
+  const combinedSchema = {
+    "@graph": [
+      getBlogSchema(post.title, post.excerpt || '', post.date, post.image, wordCount),
+      getBreadcrumbSchema(post.title, post.slug)
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title={post.title}
+        description={post.excerpt || ''}
+        path={`/blog/${post.slug}`}
+        type="article"
+        image={optimizeImageUrl(post.image)}
+        schemaData={combinedSchema}
+      />
       {/* Blog Post Detail */}
       <section className="py-12 px-6">
         <div className="max-w-4xl mx-auto">
-          <button 
+          <button
             onClick={() => navigate('/blog')}
-            className="text-blue-500 hover:text-blue-600 mb-8 flex items-center gap-2"
+            className="text-orange-500 hover:text-orange-600 mb-8 flex items-center gap-2"
             aria-label="Go back to blog post list"
           >
             ← Back to Blog
           </button>
-          
+
+          {/* Breadcrumbs for better navigation and SEO */}
+          <nav className="text-sm text-gray-600 mb-6" aria-label="Breadcrumb">
+            <ol className="flex items-center space-x-2">
+              <li><button onClick={() => navigate('/')} className="hover:text-orange-500">Home</button></li>
+              <li><span className="text-gray-400">/</span></li>
+              <li><button onClick={() => navigate('/blog')} className="hover:text-orange-500">Blog</button></li>
+              <li><span className="text-gray-400">/</span></li>
+              <li className="text-gray-900 font-medium">{post.title.substring(0, 50)}{post.title.length > 50 ? '...' : ''}</li>
+            </ol>
+          </nav>
+
           <div className="mb-8">
             <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
               <ImageWithFallback
-                src={post.image}
+                src={optimizeImageUrl(post.image)}
                 alt={post.title}
                 className="w-full h-full object-cover"
+                loading="eager"
               />
             </div>
-            
-            <div className="flex items-center gap-4 mb-4">
-              <span className="bg-blue-500 text-white text-xs px-3 py-1 rounded">
+
+            <div className="flex items-center gap-4 mb-4 flex-wrap">
+              <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
                 BLOG
               </span>
               <span className="text-gray-600">{post.date}</span>
+              <span className="flex items-center gap-1 text-gray-600 text-sm">
+                <Clock className="w-4 h-4" />
+                {readingTime} min read
+              </span>
+              <span className="text-gray-600 text-sm">
+                {wordCount.toLocaleString()} words
+              </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -64,18 +106,25 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
               </p>
             )}
           </div>
-          
+
+          {/* Table of Contents */}
+          {post.content && <TableOfContents content={post.content} />}
+
           {post.content && (
             <div className="prose prose-lg max-w-none">
               {post.content.split('\n').map((paragraph: string, index: number) => {
                 if (paragraph.trim() === '') return <br key={index} />;
-                
+
                 if (paragraph.startsWith('## ')) {
-                  return <h2 key={index} className="text-3xl font-bold text-gray-900 mt-12 mb-6">{paragraph.replace('## ', '')}</h2>;
+                  const text = paragraph.replace('## ', '');
+                  const id = `heading-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+                  return <h2 key={index} id={id} className="text-3xl font-bold text-gray-900 mt-12 mb-6 scroll-mt-24">{text}</h2>;
                 }
-                
+
                 if (paragraph.startsWith('### ')) {
-                  return <h3 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">{paragraph.replace('### ', '')}</h3>;
+                  const text = paragraph.replace('### ', '');
+                  const id = `heading-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+                  return <h3 key={index} id={id} className="text-2xl font-bold text-gray-900 mt-8 mb-4 scroll-mt-24">{text}</h3>;
                 }
                 
                 if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
@@ -94,9 +143,9 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
                   return (
                     <p key={index} className="text-gray-700 mb-4 leading-relaxed">
                       {beforeText}
-                      <Button 
+                      <Button
                         onClick={onContactClick}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
+                        className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
                       >
                         let's talk
                       </Button>
@@ -120,6 +169,58 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
               })}
             </div>
           )}
+
+          {/* Author/Agency Info Section */}
+          <div className="mt-16 p-8 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl border border-orange-100">
+            <div className="flex items-start gap-6">
+              <div className="flex-shrink-0">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-full flex items-center justify-center text-white text-2xl font-black">
+                  YM
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">About Yak Media</h3>
+                <p className="text-gray-700 mb-4 leading-relaxed">
+                  We're a Phoenix-based marketing agency that helps brands grow through creative content, paid advertising, and strategic planning. Our team specializes in turning marketing into measurable results.
+                </p>
+                <Button
+                  onClick={onContactClick}
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2"
+                >
+                  Work With Us
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Related Posts */}
+      <RelatedPosts
+        currentPost={post}
+        allPosts={blogPosts}
+        onPostClick={(relatedPost) => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          navigate(`/blog/${relatedPost.slug}`);
+        }}
+        maxPosts={3}
+      />
+
+      {/* Final CTA Section */}
+      <section className="bg-gray-900 py-16 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Ready to Grow Your Brand?
+          </h2>
+          <p className="text-xl text-gray-300 mb-8">
+            Let's build marketing that actually moves the needle. From creative to media to strategy—we've got you covered.
+          </p>
+          <Button
+            onClick={onContactClick}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold"
+          >
+            Get Started
+          </Button>
         </div>
       </section>
     </div>

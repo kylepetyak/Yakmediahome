@@ -401,7 +401,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
               </div>
 
               {/* Newsletter Signup with GHL Integration */}
-              <NewsletterGHLForm formId="YOUR_NEWSLETTER_FORM_ID" />
+              <NewsletterGHLForm formId="89KqVS7tZXeamuRy9uMm" />
 
               {/* Categories */}
               <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm">

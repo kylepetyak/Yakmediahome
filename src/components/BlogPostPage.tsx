@@ -64,9 +64,9 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
           {/* Breadcrumbs for better navigation and SEO */}
           <nav className="text-sm text-gray-600 mb-6" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><a href="/" className="hover:text-orange-500">Home</a></li>
+              <li><button onClick={() => navigate('/')} className="hover:text-orange-500">Home</button></li>
               <li><span className="text-gray-400">/</span></li>
-              <li><a href="/blog" className="hover:text-orange-500">Blog</a></li>
+              <li><button onClick={() => navigate('/blog')} className="hover:text-orange-500">Blog</button></li>
               <li><span className="text-gray-400">/</span></li>
               <li className="text-gray-900 font-medium">{post.title.substring(0, 50)}{post.title.length > 50 ? '...' : ''}</li>
             </ol>

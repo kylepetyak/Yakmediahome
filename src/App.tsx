@@ -102,9 +102,9 @@ function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <SEOHead 
-        title="Yak Media"
-        description="Digital marketing agency specializing in creative, media, and strategy services. We're your partner for growth - helping brands navigate the digital landscape with innovative solutions."
+      <SEOHead
+        title="#1 Marketing Agency Phoenix AZ | Content + Ads | Yak Media"
+        description="Top-rated Phoenix marketing agency (4.9★). We grew 50+ AZ businesses 250%+ with content creation, paid ads & social media. Free strategy call → (480) 244-6470"
         path="/"
         schemaData={getCompanySchema()}
       />
@@ -194,8 +194,8 @@ function BlogPageRoute() {
 
   return (
     <PageLayout
-      title="In the Press - Blog"
-      description="Latest news, insights, and press coverage from Yak Media. Stay updated with our digital marketing expertise, industry insights, and client success stories."
+      title="Marketing Insights + Tips | Phoenix AZ Blog | Yak Media"
+      description="Expert marketing insights for Phoenix businesses. Learn digital marketing strategies, content creation tips & paid advertising best practices from Yak Media."
       path="/blog"
     >
       <Suspense fallback={<LoadingSpinner />}>
@@ -253,8 +253,8 @@ function ServicesPageRoute({ serviceType }: { serviceType: string }) {
     switch (serviceType) {
       case 'services':
         return {
-          title: 'Services',
-          description: 'Comprehensive digital marketing services from Yak Media. Creative, media, strategy, and integrated solutions to help your brand succeed.',
+          title: 'Digital Marketing Services Phoenix AZ | Full-Service Agency',
+          description: 'Comprehensive digital marketing services in Phoenix: Creative, Media, Strategy & Integrated solutions. We help AZ businesses scale with data-driven marketing.',
           path: '/services',
           schema: getServiceSchema('Digital Marketing Services', 'Comprehensive digital marketing solutions including creative, media, strategy, and integrated services')
         };
@@ -361,8 +361,8 @@ function PhoenixPageRoute() {
 
   return (
     <PageLayout
-      title="Best Marketing Agency in Phoenix, AZ | 4.9★ Rated | Yak Media"
-      description="Top-rated Phoenix marketing agency (4.9/5 ★). We help local businesses grow 250%+ with creative content, paid ads & social media marketing. Free consultation → (480) 244-6470"
+      title="Best Marketing Agency Phoenix AZ | 4.9★ Rated | Yak Media"
+      description="#1 Phoenix marketing agency (4.9/5★). We help local businesses grow 250%+ with creative content, paid ads & social media. Free consultation → (480) 244-6470"
       path="/phoenix"
       schemaData={getLocalBusinessSchema("Phoenix", "Arizona", phoenixData.geoCoordinates)}
     >
@@ -378,8 +378,8 @@ function ScottsdalePageRoute() {
 
   return (
     <PageLayout
-      title="Best Luxury Marketing Agency Scottsdale, AZ | 4.9★ | Yak Media"
-      description="Top-rated Scottsdale marketing agency (4.9/5 ★) specializing in luxury brands. Premium digital marketing, paid ads & creative content for upscale businesses. Call (480) 244-6470"
+      title="Luxury Marketing Agency Scottsdale AZ | 4.9★ | Yak Media"
+      description="Top Scottsdale marketing agency (4.9★) for luxury brands. Premium digital marketing, creative content & paid ads for upscale businesses. Call (480) 244-6470"
       path="/scottsdale"
       schemaData={getLocalBusinessSchema("Scottsdale", "Arizona", scottsdaleData.geoCoordinates)}
     >
@@ -395,8 +395,8 @@ function TempePageRoute() {
 
   return (
     <PageLayout
-      title="Best Marketing Agency Tempe, AZ | ASU & Tech Marketing | 4.9★"
-      description="Top Tempe marketing agency (4.9/5 ★) serving ASU businesses & tech startups. Social media, paid ads & creative content that drives results. Free audit → (480) 244-6470"
+      title="Marketing Agency Tempe AZ | ASU & Tech Marketing | 4.9★ Rated"
+      description="Top Tempe marketing agency (4.9★) serving ASU businesses & tech startups. Social media, paid ads & content creation that drives results. Call (480) 244-6470"
       path="/tempe"
       schemaData={getLocalBusinessSchema("Tempe", "Arizona", tempeData.geoCoordinates)}
     >
@@ -412,8 +412,8 @@ function MesaPageRoute() {
 
   return (
     <PageLayout
-      title="Best Marketing Agency Mesa, AZ | Healthcare & Local Business | 4.9★"
-      description="Top-rated Mesa marketing agency (4.9/5 ★). Digital marketing for healthcare, retail & local businesses. Creative content + paid ads that work. Call (480) 244-6470"
+      title="Marketing Agency Mesa AZ | Healthcare & Local Biz | 4.9★ Rated"
+      description="Top Mesa marketing agency (4.9★) for healthcare, retail & local businesses. Creative content + paid ads that work. Free consultation → (480) 244-6470"
       path="/mesa"
       schemaData={getLocalBusinessSchema("Mesa", "Arizona", mesaData.geoCoordinates)}
     >
@@ -429,8 +429,8 @@ function ChandlerPageRoute() {
 
   return (
     <PageLayout
-      title="Best B2B Marketing Agency Chandler, AZ | Tech Marketing | 4.9★"
-      description="Top Chandler marketing agency (4.9/5 ★) specializing in B2B & tech companies. LinkedIn ads, demand gen & strategic marketing. Intel, PayPal corridor. Call (480) 244-6470"
+      title="B2B Marketing Agency Chandler AZ | Tech Marketing | 4.9★ Rated"
+      description="#1 Chandler marketing agency (4.9★) for B2B & tech companies. LinkedIn ads, demand gen & strategic marketing in Intel/PayPal corridor. Call (480) 244-6470"
       path="/chandler"
       schemaData={getLocalBusinessSchema("Chandler", "Arizona", chandlerData.geoCoordinates)}
     >
@@ -446,8 +446,8 @@ function GilbertPageRoute() {
 
   return (
     <PageLayout
-      title="Best Marketing Agency Gilbert, AZ | Family Business Marketing | 4.9★"
-      description="Top-rated Gilbert marketing agency (4.9/5 ★) for family businesses & local services. Facebook ads, Google marketing & authentic content. Free consultation → (480) 244-6470"
+      title="Marketing Agency Gilbert AZ | Family Business Marketing | 4.9★"
+      description="#1 Gilbert marketing agency (4.9★) for family businesses & local services. Facebook ads, Google marketing & authentic content. Free call → (480) 244-6470"
       path="/gilbert"
       schemaData={getLocalBusinessSchema("Gilbert", "Arizona", gilbertData.geoCoordinates)}
     >
@@ -463,8 +463,8 @@ function GlendalePageRoute() {
 
   return (
     <PageLayout
-      title="Best Sports & Entertainment Marketing Agency Glendale, AZ | 4.9★"
-      description="Top Glendale marketing agency (4.9/5 ★) near State Farm Stadium. Sports bars, retail & entertainment venues trust us for high-energy campaigns. Call (480) 244-6470"
+      title="Sports Marketing Agency Glendale AZ | Entertainment | 4.9★"
+      description="Top Glendale marketing agency (4.9★) near State Farm Stadium. Sports bars, retail & entertainment venues trust us for high-energy campaigns (480) 244-6470"
       path="/glendale"
       schemaData={getLocalBusinessSchema("Glendale", "Arizona", glendaleData.geoCoordinates)}
     >
@@ -481,8 +481,8 @@ function PhoenixContentCreationPageRoute() {
 
   return (
     <PageLayout
-      title="Content Creation in Phoenix, AZ | Yak Media"
-      description="Yak Media creates high-performing content for Phoenix businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
+      title="Content Creation Phoenix AZ | Video + Social | Yak Media"
+      description="Phoenix content creation agency specializing in short-form video, social media & branded storytelling. We create content that drives measurable growth + ROI."
       path="/phoenix-content-creation"
       schemaData={getLocalBusinessSchema("Phoenix", "Arizona", phoenixData.geoCoordinates)}
     >

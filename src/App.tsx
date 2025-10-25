@@ -190,14 +190,16 @@ function PageLayout({
 
 // Route components with single suspense boundary per route
 function BlogPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="In the Press - Blog"
       description="Latest news, insights, and press coverage from Yak Media. Stay updated with our digital marketing expertise, industry insights, and client success stories."
       path="/blog"
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <BlogPage onContactClick={() => window.location.href = '/contact'} />
+        <BlogPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
@@ -205,10 +207,11 @@ function BlogPageRoute() {
 
 function BlogPostPageRoute() {
   const { slug } = useParams<{ slug: string }>();
-  
+  const navigate = useNavigate();
+
   // Import blogPosts here to get the post data for SEO
   const [post, setPost] = useState<any>(null);
-  
+
   useEffect(() => {
     import("./components/blogData").then(({ blogPosts }) => {
       const foundPost = blogPosts.find(p => p.slug === slug);
@@ -217,13 +220,13 @@ function BlogPostPageRoute() {
   }, [slug]);
 
   return (
-    <PageLayout 
+    <PageLayout
       title={post?.title || "Blog Post"}
       description={post?.excerpt || "Read the latest insights from Yak Media's blog."}
       path={`/blog/${slug}`}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <BlogPostPage onContactClick={() => window.location.href = '/contact'} />
+        <BlogPostPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
@@ -244,6 +247,8 @@ function ContactPageRoute() {
 }
 
 function ServicesPageRoute({ serviceType }: { serviceType: string }) {
+  const navigate = useNavigate();
+
   const getServiceSEO = () => {
     switch (serviceType) {
       case 'services':
@@ -301,7 +306,7 @@ function ServicesPageRoute({ serviceType }: { serviceType: string }) {
       schemaData={seo.schema}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <ServicesPage serviceType={serviceType as any} onContactClick={() => window.location.href = '/contact'} />
+        <ServicesPage serviceType={serviceType as any} onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
@@ -352,105 +357,119 @@ function TermsPageRoute() {
 
 // Location page routes
 function PhoenixPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Best Marketing Agency in Phoenix, AZ | 4.9★ Rated | Yak Media"
       description="Top-rated Phoenix marketing agency (4.9/5 ★). We help local businesses grow 250%+ with creative content, paid ads & social media marketing. Free consultation → (480) 244-6470"
       path="/phoenix"
       schemaData={getLocalBusinessSchema("Phoenix", "Arizona", phoenixData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <PhoenixPage onContactClick={() => window.location.href = '/contact'} />
+        <PhoenixPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function ScottsdalePageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Best Luxury Marketing Agency Scottsdale, AZ | 4.9★ | Yak Media"
       description="Top-rated Scottsdale marketing agency (4.9/5 ★) specializing in luxury brands. Premium digital marketing, paid ads & creative content for upscale businesses. Call (480) 244-6470"
       path="/scottsdale"
       schemaData={getLocalBusinessSchema("Scottsdale", "Arizona", scottsdaleData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <ScottsdalePage onContactClick={() => window.location.href = '/contact'} />
+        <ScottsdalePage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function TempePageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Best Marketing Agency Tempe, AZ | ASU & Tech Marketing | 4.9★"
       description="Top Tempe marketing agency (4.9/5 ★) serving ASU businesses & tech startups. Social media, paid ads & creative content that drives results. Free audit → (480) 244-6470"
       path="/tempe"
       schemaData={getLocalBusinessSchema("Tempe", "Arizona", tempeData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <TempePage onContactClick={() => window.location.href = '/contact'} />
+        <TempePage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function MesaPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Best Marketing Agency Mesa, AZ | Healthcare & Local Business | 4.9★"
       description="Top-rated Mesa marketing agency (4.9/5 ★). Digital marketing for healthcare, retail & local businesses. Creative content + paid ads that work. Call (480) 244-6470"
       path="/mesa"
       schemaData={getLocalBusinessSchema("Mesa", "Arizona", mesaData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <MesaPage onContactClick={() => window.location.href = '/contact'} />
+        <MesaPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function ChandlerPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Best B2B Marketing Agency Chandler, AZ | Tech Marketing | 4.9★"
       description="Top Chandler marketing agency (4.9/5 ★) specializing in B2B & tech companies. LinkedIn ads, demand gen & strategic marketing. Intel, PayPal corridor. Call (480) 244-6470"
       path="/chandler"
       schemaData={getLocalBusinessSchema("Chandler", "Arizona", chandlerData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <ChandlerPage onContactClick={() => window.location.href = '/contact'} />
+        <ChandlerPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function GilbertPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Best Marketing Agency Gilbert, AZ | Family Business Marketing | 4.9★"
       description="Top-rated Gilbert marketing agency (4.9/5 ★) for family businesses & local services. Facebook ads, Google marketing & authentic content. Free consultation → (480) 244-6470"
       path="/gilbert"
       schemaData={getLocalBusinessSchema("Gilbert", "Arizona", gilbertData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <GilbertPage onContactClick={() => window.location.href = '/contact'} />
+        <GilbertPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function GlendalePageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Best Sports & Entertainment Marketing Agency Glendale, AZ | 4.9★"
       description="Top Glendale marketing agency (4.9/5 ★) near State Farm Stadium. Sports bars, retail & entertainment venues trust us for high-energy campaigns. Call (480) 244-6470"
       path="/glendale"
       schemaData={getLocalBusinessSchema("Glendale", "Arizona", glendaleData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <GlendalePage onContactClick={() => window.location.href = '/contact'} />
+        <GlendalePage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
@@ -458,105 +477,119 @@ function GlendalePageRoute() {
 
 // Content creation page routes
 function PhoenixContentCreationPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Content Creation in Phoenix, AZ | Yak Media"
       description="Yak Media creates high-performing content for Phoenix businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
       path="/phoenix-content-creation"
       schemaData={getLocalBusinessSchema("Phoenix", "Arizona", phoenixData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <PhoenixContentCreationPage onContactClick={() => window.location.href = '/contact'} />
+        <PhoenixContentCreationPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function ScottsdaleContentCreationPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Content Creation in Scottsdale, AZ | Yak Media"
       description="Yak Media creates high-performing content for Scottsdale businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
       path="/scottsdale-content-creation"
       schemaData={getLocalBusinessSchema("Scottsdale", "Arizona", scottsdaleData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <ScottsdaleContentCreationPage onContactClick={() => window.location.href = '/contact'} />
+        <ScottsdaleContentCreationPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function TempeContentCreationPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Content Creation in Tempe, AZ | Yak Media"
       description="Yak Media creates high-performing content for Tempe businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
       path="/tempe-content-creation"
       schemaData={getLocalBusinessSchema("Tempe", "Arizona", tempeData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <TempeContentCreationPage onContactClick={() => window.location.href = '/contact'} />
+        <TempeContentCreationPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function MesaContentCreationPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Content Creation in Mesa, AZ | Yak Media"
       description="Yak Media creates high-performing content for Mesa businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
       path="/mesa-content-creation"
       schemaData={getLocalBusinessSchema("Mesa", "Arizona", mesaData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <MesaContentCreationPage onContactClick={() => window.location.href = '/contact'} />
+        <MesaContentCreationPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function ChandlerContentCreationPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Content Creation in Chandler, AZ | Yak Media"
       description="Yak Media creates high-performing content for Chandler businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
       path="/chandler-content-creation"
       schemaData={getLocalBusinessSchema("Chandler", "Arizona", chandlerData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <ChandlerContentCreationPage onContactClick={() => window.location.href = '/contact'} />
+        <ChandlerContentCreationPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function GilbertContentCreationPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Content Creation in Gilbert, AZ | Yak Media"
       description="Yak Media creates high-performing content for Gilbert businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
       path="/gilbert-content-creation"
       schemaData={getLocalBusinessSchema("Gilbert", "Arizona", gilbertData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <GilbertContentCreationPage onContactClick={() => window.location.href = '/contact'} />
+        <GilbertContentCreationPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );
 }
 
 function GlendaleContentCreationPageRoute() {
+  const navigate = useNavigate();
+
   return (
-    <PageLayout 
+    <PageLayout
       title="Content Creation in Glendale, AZ | Yak Media"
       description="Yak Media creates high-performing content for Glendale businesses — from short-form video to branded storytelling — designed to capture attention and drive measurable growth."
       path="/glendale-content-creation"
       schemaData={getLocalBusinessSchema("Glendale", "Arizona", glendaleData.geoCoordinates)}
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <GlendaleContentCreationPage onContactClick={() => window.location.href = '/contact'} />
+        <GlendaleContentCreationPage onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );

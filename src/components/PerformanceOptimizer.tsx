@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 
 export function PerformanceOptimizer() {
   useEffect(() => {
+    // Track created elements for cleanup
+    const createdElements: HTMLElement[] = [];
+
     // Preload critical resources
     const preloadCritical = () => {
       // Preload critical fonts
@@ -11,6 +14,7 @@ export function PerformanceOptimizer() {
       fontLink.type = 'font/woff2';
       fontLink.crossOrigin = 'anonymous';
       document.head.appendChild(fontLink);
+      createdElements.push(fontLink);
 
       // Preload critical images (you can add your key images here)
       const criticalImages = [
@@ -23,6 +27,7 @@ export function PerformanceOptimizer() {
         link.as = 'image';
         link.href = src;
         document.head.appendChild(link);
+        createdElements.push(link);
       });
     };
 
@@ -70,7 +75,22 @@ export function PerformanceOptimizer() {
 
     // Cleanup on unmount
     return () => {
-      // Cleanup if needed
+      // Remove all created link elements
+      createdElements.forEach(element => {
+        if (element && element.parentNode) {
+          try {
+            element.parentNode.removeChild(element);
+          } catch (err) {
+            // Already removed, that's okay
+          }
+        }
+      });
+
+      // Remove added CSS properties
+      document.documentElement.style.removeProperty('--font-display');
+
+      // Remove added classes
+      document.documentElement.classList.remove('fast-connection', 'reduce-motion');
     };
   }, []);
 

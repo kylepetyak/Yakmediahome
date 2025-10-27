@@ -13,7 +13,7 @@ const criticalCSS = `
     backdrop-filter: blur(10px);
     height: 80px;
   }
-  
+
   .hero-critical {
     min-height: 100vh;
     display: flex;
@@ -21,35 +21,35 @@ const criticalCSS = `
     justify-content: center;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
-  
+
   .content-critical {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
-  
+
   /* Font loading optimization */
   .font-display-swap {
     font-display: swap;
   }
-  
+
   /* Prevent layout shift */
   .aspect-ratio-16-9 {
     aspect-ratio: 16 / 9;
   }
-  
+
   /* Critical loading states */
   .loading-skeleton {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 200% 100%;
     animation: loading 1.5s infinite;
   }
-  
+
   @keyframes loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
-  
+
   /* Optimize first paint */
   .first-paint-optimized {
     contain: layout style paint;
@@ -58,11 +58,15 @@ const criticalCSS = `
 
 export function CriticalCSS() {
   useEffect(() => {
+    // Track created elements for cleanup
+    const createdElements: HTMLElement[] = [];
+
     // Inject critical CSS immediately
     const style = document.createElement('style');
     style.textContent = criticalCSS;
     style.setAttribute('data-critical', 'true');
     document.head.insertBefore(style, document.head.firstChild);
+    createdElements.push(style);
 
     // Preconnect to external domains
     const preconnectDomains = [
@@ -77,14 +81,20 @@ export function CriticalCSS() {
       link.href = domain;
       link.crossOrigin = 'anonymous';
       document.head.appendChild(link);
+      createdElements.push(link);
     });
 
     return () => {
-      // Cleanup critical CSS if component unmounts
-      const criticalStyle = document.querySelector('style[data-critical="true"]');
-      if (criticalStyle) {
-        criticalStyle.remove();
-      }
+      // Cleanup all created elements
+      createdElements.forEach(element => {
+        if (element && element.parentNode) {
+          try {
+            element.parentNode.removeChild(element);
+          } catch (err) {
+            // Already removed, that's okay
+          }
+        }
+      });
     };
   }, []);
 

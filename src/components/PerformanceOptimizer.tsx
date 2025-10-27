@@ -7,14 +7,22 @@ export function PerformanceOptimizer() {
 
     // Preload critical resources
     const preloadCritical = () => {
-      // Preload critical fonts
-      const fontLink = document.createElement('link');
-      fontLink.rel = 'preload';
-      fontLink.as = 'font';
-      fontLink.type = 'font/woff2';
-      fontLink.crossOrigin = 'anonymous';
-      document.head.appendChild(fontLink);
-      createdElements.push(fontLink);
+      // Preload critical fonts (add your font URLs here)
+      const criticalFonts = [
+        // Example: '/fonts/your-font.woff2'
+        // Add your critical font files here
+      ];
+
+      criticalFonts.forEach(fontUrl => {
+        const fontLink = document.createElement('link');
+        fontLink.rel = 'preload';
+        fontLink.as = 'font';
+        fontLink.type = 'font/woff2';
+        fontLink.crossOrigin = 'anonymous';
+        fontLink.href = fontUrl;
+        document.head.appendChild(fontLink);
+        createdElements.push(fontLink);
+      });
 
       // Preload critical images (you can add your key images here)
       const criticalImages = [

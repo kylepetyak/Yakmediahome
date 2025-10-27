@@ -55,12 +55,12 @@ function LoadingSpinner() {
   );
 }
 
-// Error Boundary for lazy loading failures
+// Error Boundary for lazy loading failures - with location-based reset
 class ErrorBoundary extends Component<
-  { children: ReactNode },
+  { children: ReactNode; locationKey?: string },
   { hasError: boolean; error: Error | null }
 > {
-  constructor(props: { children: ReactNode }) {
+  constructor(props: { children: ReactNode; locationKey?: string }) {
     super(props);
     this.state = { hasError: false, error: null };
   }
@@ -71,6 +71,13 @@ class ErrorBoundary extends Component<
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('React Error Boundary caught an error:', error, errorInfo);
+  }
+
+  // Reset error state when location changes
+  componentDidUpdate(prevProps: { children: ReactNode; locationKey?: string }) {
+    if (prevProps.locationKey !== this.props.locationKey && this.state.hasError) {
+      this.setState({ hasError: false, error: null });
+    }
   }
 
   render() {
@@ -99,6 +106,12 @@ class ErrorBoundary extends Component<
 
     return this.props.children;
   }
+}
+
+// Wrapper to pass location to ErrorBoundary
+function ErrorBoundaryWithRouter({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  return <ErrorBoundary locationKey={location.key}>{children}</ErrorBoundary>;
 }
 
 // Scroll to top component
@@ -653,7 +666,7 @@ export default function App() {
       <AccessibilityEnhancer />
       <ScrollToTop />
       <Toaster />
-      <ErrorBoundary>
+      <ErrorBoundaryWithRouter>
         <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogPageRoute />} />
@@ -689,7 +702,7 @@ export default function App() {
         <Route path="/preview_page.html" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      </ErrorBoundary>
+      </ErrorBoundaryWithRouter>
     </Router>
   );
 }

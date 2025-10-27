@@ -99,7 +99,7 @@ interface NewsletterGHLFormProps {
 
 export function NewsletterGHLForm({ formId }: NewsletterGHLFormProps) {
   return (
-    <div className="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-xl border border-orange-200">
+    <div className="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-xl border border-orange-200 shadow-sm">
       <h3 className="text-lg font-bold text-gray-900 mb-2">
         📬 Get Marketing Tips Weekly
       </h3>
@@ -108,11 +108,14 @@ export function NewsletterGHLForm({ formId }: NewsletterGHLFormProps) {
       </p>
 
       {formId && formId !== 'YOUR_NEWSLETTER_FORM_ID' ? (
-        <GHLForm
-          formId={formId}
-          height="200px"
-          title="Newsletter Signup"
-        />
+        <div className="bg-white rounded-lg overflow-hidden">
+          <GHLForm
+            formId={formId}
+            height="400px"
+            title="Newsletter Signup"
+            className="w-full"
+          />
+        </div>
       ) : (
         <div className="text-center py-4">
           <p className="text-sm text-gray-500 mb-2">Newsletter form not connected yet</p>

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate, useParams } from "react-router-dom";
-import { useEffect, Suspense, lazy, useState } from "react";
+import { useEffect, Suspense, lazy, useState, Component, ErrorInfo, ReactNode } from "react";
 import { SEOHead, getCompanySchema, getServiceSchema, getLocalBusinessSchema } from "./components/SEOHead";
 import { AccessibilityEnhancer } from "./components/AccessibilityEnhancer";
 import { Toaster } from "./components/ui/sonner";
@@ -46,10 +46,59 @@ const EmailTestPage = lazy(() => import("./components/EmailTestPage").then(modul
 // Optimized loading component with better performance
 function LoadingSpinner() {
   return (
-    <div className="flex items-center justify-center py-8 critical-resource">
-      <div className="animate-spin h-8 w-8 border-3 border-blue-500 border-t-transparent rounded-full gpu-accelerated"></div>
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="text-center">
+        <div className="animate-spin h-12 w-12 border-4 border-orange-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+        <p className="text-gray-600 font-medium">Loading...</p>
+      </div>
     </div>
   );
+}
+
+// Error Boundary for lazy loading failures
+class ErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('React Error Boundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-white px-6">
+          <div className="text-center max-w-md">
+            <div className="text-6xl mb-4">⚠️</div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h1>
+            <p className="text-gray-600 mb-6">
+              The page failed to load. Please try refreshing or{' '}
+              <a href="/" className="text-orange-500 hover:text-orange-600 font-semibold">
+                return to homepage
+              </a>
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold"
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
 }
 
 // Scroll to top component
@@ -604,7 +653,8 @@ export default function App() {
       <AccessibilityEnhancer />
       <ScrollToTop />
       <Toaster />
-      <Routes>
+      <ErrorBoundary>
+        <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogPageRoute />} />
         <Route path="/blog/:slug" element={<BlogPostPageRoute />} />
@@ -639,6 +689,7 @@ export default function App() {
         <Route path="/preview_page.html" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </ErrorBoundary>
     </Router>
   );
 }

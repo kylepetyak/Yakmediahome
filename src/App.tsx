@@ -253,6 +253,7 @@ function PageLayout({
 // Route components with single suspense boundary per route
 function BlogPageRoute() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <PageLayout
@@ -261,7 +262,7 @@ function BlogPageRoute() {
       path="/blog"
     >
       <Suspense fallback={<LoadingSpinner />}>
-        <BlogPage onContactClick={() => navigate('/contact')} />
+        <BlogPage key={location.key} onContactClick={() => navigate('/contact')} />
       </Suspense>
     </PageLayout>
   );

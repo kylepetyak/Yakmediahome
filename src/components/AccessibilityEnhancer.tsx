@@ -47,24 +47,16 @@ export function AccessibilityEnhancer() {
     document.body.insertBefore(skipLink, document.body.firstChild);
     createdElements.push(skipLink);
 
-    // Add main content landmark
-    const mainContent = document.querySelector('main') || document.querySelector('[role="main"]');
-    if (!mainContent) {
-      const appContainer = document.getElementById('root');
-      if (appContainer && !appContainer.querySelector('#main-content')) {
-        const main = document.createElement('div');
-        main.id = 'main-content';
-        main.setAttribute('role', 'main');
-        main.setAttribute('data-accessibility-enhanced', 'true'); // Mark for cleanup
-        main.style.outline = 'none';
-
-        // Wrap existing content
-        while (appContainer.firstChild && appContainer.firstChild !== main) {
-          main.appendChild(appContainer.firstChild);
-        }
-        appContainer.appendChild(main);
-        createdElements.push(main);
+    // Don't wrap the React app - it confuses React's reconciliation!
+    // Instead, add the #main-content id directly to the root element
+    const appContainer = document.getElementById('root');
+    if (appContainer && !appContainer.id.includes('main')) {
+      // Just set the role and id on the existing root - don't create wrapper
+      if (!appContainer.getAttribute('role')) {
+        appContainer.setAttribute('role', 'main');
       }
+      // Add main-content id as a data attribute to avoid conflicts
+      appContainer.setAttribute('data-main-content', 'true');
     }
 
     // Enhance button accessibility for buttons without proper labels
@@ -181,19 +173,11 @@ export function AccessibilityEnhancer() {
         }
       });
 
-      // Clean up main content wrapper if we created it
-      const mainContent = document.querySelector('[data-accessibility-enhanced="true"]');
-      if (mainContent && mainContent.parentNode) {
-        const parent = mainContent.parentNode;
-        // Move children back to parent before removing wrapper
-        while (mainContent.firstChild) {
-          parent.insertBefore(mainContent.firstChild, mainContent);
-        }
-        try {
-          parent.removeChild(mainContent);
-        } catch (err) {
-          // Already removed, that's okay
-        }
+      // Clean up attributes we added to root
+      const appContainer = document.getElementById('root');
+      if (appContainer) {
+        appContainer.removeAttribute('data-main-content');
+        // Don't remove role="main" as it might be used elsewhere
       }
     };
   }, []);

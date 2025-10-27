@@ -7,6 +7,7 @@ import { PerformanceOptimizer } from "./components/PerformanceOptimizer";
 import { CriticalCSS } from "./components/CriticalCSS";
 import { ResourcePreloader } from "./components/ResourcePreloader";
 import { phoenixData, scottsdaleData, tempeData, mesaData, chandlerData, gilbertData, glendaleData } from "./components/cityData";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // Critical components loaded immediately (no lazy loading for core UX)
 import { Navigation } from "./components/Navigation";
@@ -667,6 +668,7 @@ export default function App() {
       <AccessibilityEnhancer />
       <ScrollToTop />
       <Toaster />
+      <SpeedInsights />
       <ErrorBoundaryWithRouter>
         <Routes>
         <Route path="/" element={<HomePage />} />

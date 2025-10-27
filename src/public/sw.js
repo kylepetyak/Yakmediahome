@@ -1,9 +1,9 @@
 // Simple service worker for caching critical resources
-const CACHE_NAME = 'yak-media-v1';
+const CACHE_NAME = 'yak-media-v2'; // Updated version to clear old cache
 const CRITICAL_RESOURCES = [
   '/',
-  '/styles/globals.css',
   '/favicon.ico'
+  // Note: CSS is bundled by Vite, no need to cache external globals.css
 ];
 
 // Install event - cache critical resources

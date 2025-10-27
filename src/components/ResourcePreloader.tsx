@@ -11,8 +11,8 @@ export function ResourcePreloader({ priority = 'medium' }: ResourcePreloaderProp
       if (priority === 'high') {
         // Preload critical above-the-fold resources
         const criticalResources = [
-          // Add your most critical resources here
-          { href: '/styles/globals.css', as: 'style' },
+          // Add your most critical resources here (e.g., fonts, images)
+          // Note: Tailwind CSS is bundled by Vite, no need for external CSS preload
         ];
 
         criticalResources.forEach(resource => {

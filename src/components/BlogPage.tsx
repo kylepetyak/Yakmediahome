@@ -379,24 +379,33 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
               <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm">
                 <h3 className="text-base md:text-lg font-bold text-gray-900 mb-4">Recently Published</h3>
                 <div className="space-y-4">
-                  {recentlyPublished.slice(0, 3).map((article, index) => (
-                    <div key={index} className="flex space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -m-2">
-                      <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-200 rounded overflow-hidden flex-shrink-0">
-                        <ImageWithFallback
-                          src={optimizeImageUrl(article.image)}
-                          alt={article.title}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
+                  {recentlyPublished.slice(0, 3).map((article, index) => {
+                    // Find the full post by matching title
+                    const fullPost = blogPosts.find(p => p.title === article.title);
+
+                    return (
+                      <div
+                        key={index}
+                        className="flex space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -m-2"
+                        onClick={() => fullPost && setSelectedPost(fullPost)}
+                      >
+                        <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-200 rounded overflow-hidden flex-shrink-0">
+                          <ImageWithFallback
+                            src={optimizeImageUrl(article.image)}
+                            alt={article.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-xs md:text-sm font-medium text-gray-900 line-clamp-2 mb-1">
+                            {article.title}
+                          </h4>
+                          <p className="text-xs text-gray-600">{article.date}</p>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs md:text-sm font-medium text-gray-900 line-clamp-2 mb-1">
-                          {article.title}
-                        </h4>
-                        <p className="text-xs text-gray-600">{article.date}</p>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 

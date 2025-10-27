@@ -111,10 +111,10 @@ export function NewsletterGHLForm({ formId }: NewsletterGHLFormProps) {
       </p>
 
       {formId && formId !== 'YOUR_NEWSLETTER_FORM_ID' ? (
-        <div className="bg-white rounded-lg shadow-sm p-1">
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <GHLForm
             formId={formId}
-            height="550px"
+            height="320px"
             title="Newsletter Signup"
             className="w-full"
           />

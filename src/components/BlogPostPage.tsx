@@ -53,37 +53,41 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
       />
       {/* Blog Post Detail */}
       <section className="py-12 px-6">
-        <div className="max-w-4xl mx-auto">
-          <button
-            onClick={() => navigate('/blog')}
-            className="text-orange-500 hover:text-orange-600 mb-8 flex items-center gap-2"
-            aria-label="Go back to blog post list"
-          >
-            ← Back to Blog
-          </button>
+        <div className="max-w-7xl mx-auto">
+          {/* Two-column layout: Main content + Sticky Sidebar */}
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Main Content */}
+            <div className="flex-1 order-2 lg:order-1">
+              <button
+                onClick={() => navigate('/blog')}
+                className="text-orange-500 hover:text-orange-600 mb-8 flex items-center gap-2"
+                aria-label="Go back to blog post list"
+              >
+                ← Back to Blog
+              </button>
 
-          {/* Breadcrumbs for better navigation and SEO */}
-          <nav className="text-sm text-gray-600 mb-6" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-2">
-              <li><button onClick={() => navigate('/')} className="hover:text-orange-500">Home</button></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li><button onClick={() => navigate('/blog')} className="hover:text-orange-500">Blog</button></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">{post.title.substring(0, 50)}{post.title.length > 50 ? '...' : ''}</li>
-            </ol>
-          </nav>
+              {/* Breadcrumbs for better navigation and SEO */}
+                  <nav className="text-sm text-gray-600 mb-6" aria-label="Breadcrumb">
+                <ol className="flex items-center space-x-2">
+                  <li><button onClick={() => navigate('/')} className="hover:text-orange-500">Home</button></li>
+                  <li><span className="text-gray-400">/</span></li>
+                  <li><button onClick={() => navigate('/blog')} className="hover:text-orange-500">Blog</button></li>
+                  <li><span className="text-gray-400">/</span></li>
+                  <li className="text-gray-900 font-medium">{post.title.substring(0, 50)}{post.title.length > 50 ? '...' : ''}</li>
+                </ol>
+              </nav>
 
-          <div className="mb-8">
-            <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
-              <ImageWithFallback
-                src={optimizeImageUrl(post.image)}
-                alt={post.title}
-                className="w-full h-full object-cover"
-                loading="eager"
-              />
-            </div>
+              <div className="mb-8">
+                <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
+                  <ImageWithFallback
+                    src={optimizeImageUrl(post.image)}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                </div>
 
-            <div className="flex items-center gap-4 mb-4 flex-wrap">
+                <div className="flex items-center gap-4 mb-4 flex-wrap">
               <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
                 BLOG
               </span>
@@ -92,27 +96,27 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
                 <Clock className="w-4 h-4" />
                 {readingTime} min read
               </span>
-              <span className="text-gray-600 text-sm">
-                {wordCount.toLocaleString()} words
-              </span>
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              {post.title}
-            </h1>
-            
-            {post.excerpt && (
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                {post.excerpt}
-              </p>
-            )}
-          </div>
+                  <span className="text-gray-600 text-sm">
+                    {wordCount.toLocaleString()} words
+                  </span>
+                </div>
 
-          {/* Table of Contents */}
-          {post.content && <TableOfContents content={post.content} />}
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  {post.title}
+                </h1>
 
-          {post.content && (
-            <div className="prose prose-lg max-w-none">
+                {post.excerpt && (
+                  <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                )}
+              </div>
+
+              {/* Table of Contents */}
+              {post.content && <TableOfContents content={post.content} />}
+
+              {post.content && (
+                <div className="prose prose-lg max-w-none">
               {post.content.split('\n').map((paragraph: string, index: number) => {
                 if (paragraph.trim() === '') return <br key={index} />;
 
@@ -166,35 +170,57 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
                   );
                 }
                 
-                return <p key={index} className="text-gray-700 mb-4 leading-relaxed">{paragraph}</p>;
-              })}
-            </div>
-          )}
+                  return <p key={index} className="text-gray-700 mb-4 leading-relaxed">{paragraph}</p>;
+                })}
+              </div>
+              )}
 
-          {/* Newsletter Signup - Perfect timing after reading content! */}
-          <div className="mt-12 mb-12 max-w-2xl mx-auto">
-            <NewsletterGHLForm formId="89KqVS7tZXeamuRy9uMm" />
-          </div>
-
-          {/* Author/Agency Info Section */}
-          <div className="mt-16 p-8 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl border border-orange-100">
-            <div className="flex items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-full flex items-center justify-center text-white text-2xl font-black">
-                  YM
+              {/* Author/Agency Info Section */}
+              <div className="mt-16 p-8 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl border border-orange-100">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-full flex items-center justify-center text-white text-2xl font-black">
+                      YM
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">About Yak Media</h3>
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      We're a Phoenix-based marketing agency that helps brands grow through creative content, paid advertising, and strategic planning. Our team specializes in turning marketing into measurable results.
+                    </p>
+                    <Button
+                      onClick={onContactClick}
+                      className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2"
+                    >
+                      Work With Us
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">About Yak Media</h3>
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                  We're a Phoenix-based marketing agency that helps brands grow through creative content, paid advertising, and strategic planning. Our team specializes in turning marketing into measurable results.
-                </p>
-                <Button
-                  onClick={onContactClick}
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2"
-                >
-                  Work With Us
-                </Button>
+            </div>
+
+            {/* Sticky Sidebar */}
+            <div className="w-full lg:w-80 order-1 lg:order-2 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto space-y-6">
+              {/* Newsletter Signup - Always visible in sidebar! */}
+              <NewsletterGHLForm formId="89KqVS7tZXeamuRy9uMm" />
+
+              {/* Quick Links */}
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => navigate('/blog')}
+                    className="w-full text-left text-orange-500 hover:text-orange-600 font-medium text-sm px-4 py-2 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors"
+                  >
+                    ← Back to All Posts
+                  </button>
+                  <button
+                    onClick={onContactClick}
+                    className="w-full text-center bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-4 py-2 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg"
+                  >
+                    Get Started
+                  </button>
+                </div>
               </div>
             </div>
           </div>

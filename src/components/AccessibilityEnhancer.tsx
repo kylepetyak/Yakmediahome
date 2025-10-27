@@ -6,6 +6,10 @@ import { useEffect } from 'react';
  */
 export function AccessibilityEnhancer() {
   useEffect(() => {
+    // Track all created elements for cleanup
+    const createdElements: HTMLElement[] = [];
+    let mutationObserver: MutationObserver | null = null;
+
     // Add skip link for keyboard navigation
     const skipLink = document.createElement('a');
     skipLink.href = '#main-content';
@@ -16,7 +20,7 @@ export function AccessibilityEnhancer() {
     skipLink.style.width = '1px';
     skipLink.style.height = '1px';
     skipLink.style.overflow = 'hidden';
-    
+
     skipLink.addEventListener('focus', () => {
       skipLink.style.position = 'fixed';
       skipLink.style.top = '16px';
@@ -31,7 +35,7 @@ export function AccessibilityEnhancer() {
       skipLink.style.borderRadius = '8px';
       skipLink.style.textDecoration = 'none';
     });
-    
+
     skipLink.addEventListener('blur', () => {
       skipLink.style.position = 'absolute';
       skipLink.style.left = '-9999px';
@@ -39,9 +43,10 @@ export function AccessibilityEnhancer() {
       skipLink.style.height = '1px';
       skipLink.style.overflow = 'hidden';
     });
-    
+
     document.body.insertBefore(skipLink, document.body.firstChild);
-    
+    createdElements.push(skipLink);
+
     // Add main content landmark
     const mainContent = document.querySelector('main') || document.querySelector('[role="main"]');
     if (!mainContent) {
@@ -50,40 +55,42 @@ export function AccessibilityEnhancer() {
         const main = document.createElement('div');
         main.id = 'main-content';
         main.setAttribute('role', 'main');
+        main.setAttribute('data-accessibility-enhanced', 'true'); // Mark for cleanup
         main.style.outline = 'none';
-        
+
         // Wrap existing content
         while (appContainer.firstChild && appContainer.firstChild !== main) {
           main.appendChild(appContainer.firstChild);
         }
         appContainer.appendChild(main);
+        createdElements.push(main);
       }
     }
-    
+
     // Enhance button accessibility for buttons without proper labels
     const enhanceButtons = () => {
       const buttons = document.querySelectorAll('button:not([aria-label]):not([aria-labelledby])');
-      
+
       buttons.forEach((button) => {
         const buttonElement = button as HTMLButtonElement;
-        
+
         // Skip buttons that already have text content or proper labeling
-        if (buttonElement.textContent?.trim() || 
-            buttonElement.getAttribute('aria-label') || 
+        if (buttonElement.textContent?.trim() ||
+            buttonElement.getAttribute('aria-label') ||
             buttonElement.getAttribute('aria-labelledby')) {
           return;
         }
-        
+
         // Handle icon-only buttons
         const svg = buttonElement.querySelector('svg');
         const icon = buttonElement.querySelector('[class*="lucide"], [class*="icon"]');
-        
+
         if (svg || icon) {
           // Try to determine button purpose from context
           const parentForm = buttonElement.closest('form');
           const isSubmit = buttonElement.type === 'submit' || buttonElement.getAttribute('type') === 'submit';
           const isMenu = buttonElement.closest('[role="navigation"]') || buttonElement.classList.contains('menu');
-          
+
           if (isSubmit && parentForm) {
             buttonElement.setAttribute('aria-label', 'Submit form');
           } else if (isMenu) {
@@ -107,30 +114,31 @@ export function AccessibilityEnhancer() {
         }
       });
     };
-    
+
     // Initial enhancement
     enhanceButtons();
-    
+
     // Re-enhance when DOM changes (for lazy loaded content)
-    const observer = new MutationObserver(() => {
+    mutationObserver = new MutationObserver(() => {
       enhanceButtons();
     });
-    
-    observer.observe(document.body, {
+
+    mutationObserver.observe(document.body, {
       childList: true,
       subtree: true
     });
-    
+
     // Enhance focus management
     const enhanceFocusManagement = () => {
       // Add focus outline styles for keyboard navigation
       const style = document.createElement('style');
+      style.setAttribute('data-accessibility-styles', 'true'); // Mark for cleanup
       style.textContent = `
         .focus-visible:focus-visible {
           outline: 2px solid #2563eb;
           outline-offset: 2px;
         }
-        
+
         button:focus-visible,
         a:focus-visible,
         input:focus-visible,
@@ -139,7 +147,7 @@ export function AccessibilityEnhancer() {
           outline: 2px solid #2563eb;
           outline-offset: 2px;
         }
-        
+
         /* Hide outline for mouse users */
         button:focus:not(:focus-visible),
         a:focus:not(:focus-visible),
@@ -150,18 +158,45 @@ export function AccessibilityEnhancer() {
         }
       `;
       document.head.appendChild(style);
+      createdElements.push(style);
     };
-    
+
     enhanceFocusManagement();
-    
-    // Cleanup function
+
+    // Cleanup function - CRITICAL for navigation!
     return () => {
-      observer.disconnect();
-      if (skipLink.parentNode) {
-        skipLink.parentNode.removeChild(skipLink);
+      // Disconnect mutation observer
+      if (mutationObserver) {
+        mutationObserver.disconnect();
+      }
+
+      // Remove all created elements
+      createdElements.forEach(element => {
+        if (element && element.parentNode) {
+          try {
+            element.parentNode.removeChild(element);
+          } catch (err) {
+            // Already removed, that's okay
+          }
+        }
+      });
+
+      // Clean up main content wrapper if we created it
+      const mainContent = document.querySelector('[data-accessibility-enhanced="true"]');
+      if (mainContent && mainContent.parentNode) {
+        const parent = mainContent.parentNode;
+        // Move children back to parent before removing wrapper
+        while (mainContent.firstChild) {
+          parent.insertBefore(mainContent.firstChild, mainContent);
+        }
+        try {
+          parent.removeChild(mainContent);
+        } catch (err) {
+          // Already removed, that's okay
+        }
       }
     };
   }, []);
-  
+
   return null; // This component doesn't render anything
 }

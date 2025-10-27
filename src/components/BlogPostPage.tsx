@@ -6,6 +6,7 @@ import { blogPosts } from './blogData';
 import { SEOHead, getBlogSchema, getBreadcrumbSchema, optimizeImageUrl, calculateReadingTime, getWordCount } from './SEOHead';
 import { Clock } from 'lucide-react';
 import { RelatedPosts } from './RelatedPosts';
+import { NewsletterGHLForm } from './GHLForm';
 
 interface BlogPostPageProps {
   onContactClick?: () => void;
@@ -169,6 +170,11 @@ export function BlogPostPage({ onContactClick }: BlogPostPageProps) {
               })}
             </div>
           )}
+
+          {/* Newsletter Signup - Perfect timing after reading content! */}
+          <div className="mt-12 mb-12 max-w-2xl mx-auto">
+            <NewsletterGHLForm formId="89KqVS7tZXeamuRy9uMm" />
+          </div>
 
           {/* Author/Agency Info Section */}
           <div className="mt-16 p-8 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl border border-orange-100">

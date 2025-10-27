@@ -102,7 +102,7 @@ interface NewsletterGHLFormProps {
 
 export function NewsletterGHLForm({ formId }: NewsletterGHLFormProps) {
   return (
-    <div className="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-xl border border-orange-200 shadow-sm">
+    <div className="bg-gradient-to-br from-orange-50 to-yellow-50 p-4 sm:p-6 rounded-xl border border-orange-200 shadow-sm">
       <h3 className="text-lg font-bold text-gray-900 mb-2">
         📬 Get Marketing Tips Weekly
       </h3>
@@ -111,10 +111,10 @@ export function NewsletterGHLForm({ formId }: NewsletterGHLFormProps) {
       </p>
 
       {formId && formId !== 'YOUR_NEWSLETTER_FORM_ID' ? (
-        <div className="bg-white rounded-lg shadow-sm -mx-2 sm:mx-0">
+        <div className="bg-white rounded-lg shadow-sm p-1">
           <GHLForm
             formId={formId}
-            height="500px"
+            height="550px"
             title="Newsletter Signup"
             className="w-full"
           />

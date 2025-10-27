@@ -77,7 +77,7 @@ export function GHLForm({
         style={{
           width: '100%',
           height: height,
-          minHeight: height,
+          maxHeight: height,
           border: 'none',
           borderRadius: '12px',
           display: 'block'
@@ -85,7 +85,7 @@ export function GHLForm({
         id={`inline-${formId}`}
         title={title}
         className="shadow-lg"
-        scrolling="no"
+        scrolling="auto"
       />
     </div>
   );
@@ -111,10 +111,10 @@ export function NewsletterGHLForm({ formId }: NewsletterGHLFormProps) {
       </p>
 
       {formId && formId !== 'YOUR_NEWSLETTER_FORM_ID' ? (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden" style={{ maxHeight: '280px', height: '280px' }}>
           <GHLForm
             formId={formId}
-            height="320px"
+            height="280px"
             title="Newsletter Signup"
             className="w-full"
           />

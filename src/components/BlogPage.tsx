@@ -358,8 +358,8 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
               </div>
             </div>
 
-            {/* Sidebar - Show on top on mobile, side on desktop */}
-            <div className="w-full lg:w-80 order-1 lg:order-2 space-y-6 lg:space-y-8">
+            {/* Sidebar - Show on top on mobile, sticky on desktop */}
+            <div className="w-full lg:w-80 order-1 lg:order-2 space-y-6 lg:space-y-8 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
               {/* Search */}
               <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm">
                 <div className="relative">

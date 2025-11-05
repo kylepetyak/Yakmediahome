@@ -7,11 +7,13 @@ import { PerformanceOptimizer } from "./components/PerformanceOptimizer";
 import { CriticalCSS } from "./components/CriticalCSS";
 import { ResourcePreloader } from "./components/ResourcePreloader";
 import { phoenixData, scottsdaleData, tempeData, mesaData, chandlerData, gilbertData, glendaleData } from "./components/cityData";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // Critical components loaded immediately (no lazy loading for core UX)
 import { Navigation } from "./components/Navigation";
 import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
+import { FloatingCTA } from "./components/FloatingCTA";
 
 // Homepage sections bundled together for efficient loading
 const HomePageSections = lazy(() => import("./components/HomePageSections").then(module => ({ default: module.HomePageSections })));
@@ -658,6 +660,12 @@ function GlendaleContentCreationPageRoute() {
   );
 }
 
+// FloatingCTA wrapper with router access
+function FloatingCTAWithRouter() {
+  const navigate = useNavigate();
+  return <FloatingCTA onContactClick={() => navigate('/contact')} />;
+}
+
 export default function App() {
   return (
     <Router>
@@ -667,6 +675,8 @@ export default function App() {
       <AccessibilityEnhancer />
       <ScrollToTop />
       <Toaster />
+      <SpeedInsights />
+      <FloatingCTAWithRouter />
       <ErrorBoundaryWithRouter>
         <Routes>
         <Route path="/" element={<HomePage />} />

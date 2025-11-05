@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Input } from "./ui/input";
@@ -6,9 +7,7 @@ import { Search, Clock } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { blogPosts, recentlyPublished } from './blogData';
 import { optimizeImageUrl, calculateReadingTime } from './SEOHead';
-import { SocialShare, StickySocialShare } from './SocialShare';
 import { NewsletterGHLForm } from './GHLForm';
-import { trackBlogPostRead } from '../utils/ghlTracking';
 
 const categories = ["B2B", "Blog", "Brand"];
 
@@ -18,154 +17,10 @@ interface BlogPageProps {
 }
 
 export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
+  const navigate = useNavigate();
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedPost, setSelectedPost] = useState<any>(null);
-
-  // Find post by slug if provided
-  useEffect(() => {
-    if (postSlug) {
-      const post = blogPosts.find(p => p.slug === postSlug);
-      setSelectedPost(post || null);
-    }
-  }, [postSlug]);
-
-  // Track blog post views in GHL
-  useEffect(() => {
-    if (selectedPost) {
-      const readingTime = selectedPost.content ? calculateReadingTime(selectedPost.content) : undefined;
-      const wordCount = selectedPost.content ? selectedPost.content.split(/\s+/).length : undefined;
-
-      trackBlogPostRead({
-        postTitle: selectedPost.title,
-        postSlug: selectedPost.slug || selectedPost.id.toString(),
-        postCategory: 'blog',
-        readingTime,
-        wordCount
-      });
-    }
-  }, [selectedPost]);
-
-  // If a post is selected, show the blog post detail view
-  if (selectedPost) {
-    return (
-      <div className="min-h-screen bg-white">
-        {/* Sticky Social Share Sidebar */}
-        <StickySocialShare
-          url={`/blog/${selectedPost.slug}`}
-          title={selectedPost.title}
-          description={selectedPost.excerpt}
-        />
-
-        {/* Blog Post Detail */}
-        <section className="py-12 px-6">
-          <div className="max-w-4xl mx-auto">
-            <button
-              onClick={() => setSelectedPost(null)}
-              className="text-orange-500 hover:text-orange-600 mb-8 flex items-center gap-2"
-              aria-label="Go back to blog post list"
-            >
-              ← Back to Blog
-            </button>
-
-            <div className="mb-8">
-              <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
-                <ImageWithFallback
-                  src={selectedPost.image}
-                  alt={selectedPost.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="flex items-center gap-4 mb-4">
-                <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
-                  BLOG
-                </span>
-                <span className="text-gray-600">{selectedPost.date}</span>
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                {selectedPost.title}
-              </h1>
-              
-              {selectedPost.excerpt && (
-                <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                  {selectedPost.excerpt}
-                </p>
-              )}
-            </div>
-            
-            {selectedPost.content && (
-              <div className="prose prose-lg max-w-none">
-                {selectedPost.content.split('\n').map((paragraph: string, index: number) => {
-                  if (paragraph.trim() === '') return <br key={index} />;
-                  
-                  if (paragraph.startsWith('## ')) {
-                    return <h2 key={index} className="text-3xl font-bold text-gray-900 mt-12 mb-6">{paragraph.replace('## ', '')}</h2>;
-                  }
-                  
-                  if (paragraph.startsWith('### ')) {
-                    return <h3 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">{paragraph.replace('### ', '')}</h3>;
-                  }
-                  
-                  if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                    return <p key={index} className="font-bold text-gray-900 mb-4">{paragraph.replace(/\*\*/g, '')}</p>;
-                  }
-                  
-                  if (paragraph.startsWith('- ')) {
-                    return <li key={index} className="text-gray-700 mb-2 ml-6">{paragraph.replace('- ', '')}</li>;
-                  }
-                  
-                  // Handle the "let's talk" paragraph with button
-                  if (paragraph.includes("let's talk")) {
-                    const beforeText = paragraph.substring(0, paragraph.indexOf("let's talk"));
-                    const afterText = paragraph.substring(paragraph.indexOf("let's talk") + "let's talk".length);
-                    
-                    return (
-                      <p key={index} className="text-gray-700 mb-4 leading-relaxed">
-                        {beforeText}
-                        <Button
-                          onClick={onContactClick}
-                          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg ml-1 mr-1 inline-flex items-center"
-                        >
-                          let's talk
-                        </Button>
-                        {afterText}
-                      </p>
-                    );
-                  }
-                  
-                  if (paragraph.includes('**')) {
-                    const parts = paragraph.split('**');
-                    return (
-                      <p key={index} className="text-gray-700 mb-4 leading-relaxed">
-                        {parts.map((part, partIndex) => 
-                          partIndex % 2 === 1 ? <strong key={partIndex}>{part}</strong> : part
-                        )}
-                      </p>
-                    );
-                  }
-                  
-                  return <p key={index} className="text-gray-700 mb-4 leading-relaxed">{paragraph}</p>;
-                })}
-
-                {/* Social Share Buttons */}
-                <div className="mt-12 pt-8 border-t border-gray-200">
-                  <SocialShare
-                    url={`/blog/${selectedPost.slug}`}
-                    title={selectedPost.title}
-                    description={selectedPost.excerpt}
-                    layout="horizontal"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      </div>
-    );
-  }
 
   // Get featured post (latest post)
   const featuredPost = blogPosts[0];
@@ -202,7 +57,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
               </div>
 
               <Button
-                onClick={() => setSelectedPost(featuredPost)}
+                onClick={() => navigate(`/blog/${featuredPost.slug}`)}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg font-semibold"
               >
                 Read Article
@@ -213,7 +68,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
             <div className="order-1 lg:order-2">
               <div
                 className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl cursor-pointer transform hover:scale-105 transition-transform duration-300"
-                onClick={() => setSelectedPost(featuredPost)}
+                onClick={() => navigate(`/blog/${featuredPost.slug}`)}
               >
                 <ImageWithFallback
                   src={optimizeImageUrl(featuredPost.image)}
@@ -236,7 +91,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
             {latestPosts.map((post) => (
               <article
                 key={post.id}
-                onClick={() => setSelectedPost(post)}
+                onClick={() => navigate(`/blog/${post.slug}`)}
                 className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group"
               >
                 <div className="aspect-video bg-gray-200 relative overflow-hidden">
@@ -247,21 +102,29 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                     loading="lazy"
                   />
                 </div>
+
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-orange-500 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-orange-500 transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+
+                  <p className="text-gray-600 mb-4 line-clamp-2">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <span>{post.date}</span>
-                    {post.content && (
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {calculateReadingTime(post.content)} min
-                      </span>
-                    )}
+
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <span>{post.date}</span>
+                      {post.content && (
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {calculateReadingTime(post.content)} min
+                        </span>
+                      )}
+                    </div>
+                    <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded">
+                      BLOG
+                    </span>
                   </div>
                 </div>
               </article>
@@ -270,40 +133,49 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
         </div>
       </section>
 
-      {/* Search & Filter Section */}
+      {/* Filters Section */}
       <section className="bg-white py-8 px-4 md:px-6 border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 md:gap-4">
-            <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-white border-gray-300">
-                <SelectValue placeholder="Select Month" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="january">January</SelectItem>
-                <SelectItem value="february">February</SelectItem>
-                <SelectItem value="march">March</SelectItem>
-                <SelectItem value="april">April</SelectItem>
-                <SelectItem value="may">May</SelectItem>
-                <SelectItem value="june">June</SelectItem>
-                <SelectItem value="july">July</SelectItem>
-                <SelectItem value="august">August</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+            <h2 className="text-xl font-bold text-gray-900">Filter Posts</h2>
 
-            <Select value={selectedYear} onValueChange={setSelectedYear}>
-              <SelectTrigger className="w-full sm:w-40 md:w-48 bg-white border-gray-300">
-                <SelectValue placeholder="Select Year" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="2025">2025</SelectItem>
-                <SelectItem value="2024">2024</SelectItem>
-                <SelectItem value="2023">2023</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex flex-wrap gap-4 w-full md:w-auto">
+              {/* Month Filter */}
+              <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                <SelectTrigger className="w-full md:w-[180px]">
+                  <SelectValue placeholder="Select Month" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Months</SelectItem>
+                  <SelectItem value="january">January</SelectItem>
+                  <SelectItem value="february">February</SelectItem>
+                  <SelectItem value="march">March</SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-2 w-full sm:w-auto">
-              FILTER
-            </Button>
+              {/* Year Filter */}
+              <Select value={selectedYear} onValueChange={setSelectedYear}>
+                <SelectTrigger className="w-full md:w-[180px]">
+                  <SelectValue placeholder="Select Year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Years</SelectItem>
+                  <SelectItem value="2024">2024</SelectItem>
+                  <SelectItem value="2023">2023</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Button
+                className="w-full md:w-auto bg-orange-500 hover:bg-orange-600 text-white px-6"
+                onClick={() => {
+                  setSelectedMonth("");
+                  setSelectedYear("");
+                  setSearchQuery("");
+                }}
+              >
+                FILTER
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -321,7 +193,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                 {blogPosts.map((post) => (
                   <article
                     key={post.id}
-                    onClick={() => setSelectedPost(post)}
+                    onClick={() => navigate(`/blog/${post.slug}`)}
                     className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                   >
                     <div className="aspect-video bg-gray-200 relative overflow-hidden">
@@ -387,7 +259,7 @@ export function BlogPage({ onContactClick, postSlug }: BlogPageProps) {
                       <div
                         key={index}
                         className="flex space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -m-2"
-                        onClick={() => fullPost && setSelectedPost(fullPost)}
+                        onClick={() => fullPost && navigate(`/blog/${fullPost.slug}`)}
                       >
                         <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-200 rounded overflow-hidden flex-shrink-0">
                           <ImageWithFallback

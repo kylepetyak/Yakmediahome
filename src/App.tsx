@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Navigation } from "./components/Navigation";
 import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
+import { FloatingCTA } from "./components/FloatingCTA";
 
 // Homepage sections bundled together for efficient loading
 const HomePageSections = lazy(() => import("./components/HomePageSections").then(module => ({ default: module.HomePageSections })));
@@ -659,6 +660,12 @@ function GlendaleContentCreationPageRoute() {
   );
 }
 
+// FloatingCTA wrapper with router access
+function FloatingCTAWithRouter() {
+  const navigate = useNavigate();
+  return <FloatingCTA onContactClick={() => navigate('/contact')} />;
+}
+
 export default function App() {
   return (
     <Router>
@@ -669,6 +676,7 @@ export default function App() {
       <ScrollToTop />
       <Toaster />
       <SpeedInsights />
+      <FloatingCTAWithRouter />
       <ErrorBoundaryWithRouter>
         <Routes>
         <Route path="/" element={<HomePage />} />

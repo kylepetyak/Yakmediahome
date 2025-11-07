@@ -1,5 +1,6 @@
 import { MediaPage } from './MediaPage';
 import { StrategyPageComponent } from './StrategyPageComponent';
+import { CreativePage } from './CreativePage';
 import { ServicesHero } from './ServicesHero';
 import { ServicesIntro } from './ServicesIntro';
 import { ServicesTabs } from './ServicesTabs';
@@ -13,11 +14,16 @@ interface ServicesPageProps {
 }
 
 export function ServicesPage({ serviceType, onContactClick }: ServicesPageProps) {
+  // Render dedicated creative page
+  if (serviceType === 'creative') {
+    return <CreativePage onContactClick={onContactClick} />;
+  }
+
   // Render dedicated media page
   if (serviceType === 'media') {
     return <MediaPage onContactClick={onContactClick} />;
   }
-  
+
   // Render dedicated strategy page
   if (serviceType === 'strategy') {
     return <StrategyPageComponent onContactClick={onContactClick} />;

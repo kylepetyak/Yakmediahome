@@ -1,4 +1,5 @@
 // Homepage sections bundled together for efficient loading
+import { LeadMagnetSection } from "./LeadMagnetSection";
 import { SocialSection } from "./SocialSection";
 import { CreativeSection } from "./CreativeSection";
 import { MediaSection } from "./MediaSection";
@@ -16,14 +17,15 @@ interface HomePageSectionsProps {
 export function HomePageSections({ onBlogClick, onPostClick, onServicesClick }: HomePageSectionsProps) {
   return (
     <>
+      <LeadMagnetSection />
       <SocialSection />
       <CreativeSection onLearnMoreClick={() => onServicesClick('creative')} />
       <MediaSection onLearnMoreClick={() => onServicesClick('media')} />
       <StrategySection onLearnMoreClick={() => onServicesClick('strategy')} />
       <IntegratedSection onLearnMoreClick={() => onServicesClick('integrated')} />
-      <NewsInsightsSection 
-        onBlogClick={onBlogClick} 
-        onPostClick={onPostClick} 
+      <NewsInsightsSection
+        onBlogClick={onBlogClick}
+        onPostClick={onPostClick}
       />
       <LinkedInSection />
     </>

@@ -86,40 +86,41 @@ export function LeadMagnetSection() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/audit-request', {
+      // GoHighLevel form submission endpoint
+      const ghlFormId = 'fOJCK16acPzhWPLyhYMF';
+      const ghlEndpoint = `https://links.yak.media/widget/form/${ghlFormId}`;
+
+      // Create FormData for GHL submission
+      const formDataToSend = new FormData();
+      formDataToSend.append('business_name', formData.businessName);
+      formDataToSend.append('website_url', formData.websiteUrl);
+      formDataToSend.append('name', formData.yourName);
+      formDataToSend.append('email', formData.email);
+      if (formData.phone) formDataToSend.append('phone', formData.phone);
+      if (formData.businessType) formDataToSend.append('business_type', formData.businessType);
+      if (formData.biggestChallenge) formDataToSend.append('biggest_challenge', formData.biggestChallenge);
+      if (formData.howDidYouHear) formDataToSend.append('referral_source', formData.howDidYouHear);
+
+      const response = await fetch(ghlEndpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          businessName: formData.businessName,
-          websiteUrl: formData.websiteUrl,
-          yourName: formData.yourName,
-          email: formData.email,
-          phone: formData.phone,
-          businessType: formData.businessType,
-          biggestChallenge: formData.biggestChallenge,
-          howDidYouHear: formData.howDidYouHear,
-        }),
+        body: formDataToSend,
+        mode: 'no-cors', // GHL forms often require this for cross-origin submissions
       });
 
-      if (response.ok) {
-        setIsSuccess(true);
-        // Reset form
-        setFormData({
-          businessName: '',
-          websiteUrl: '',
-          yourName: '',
-          email: '',
-          phone: '',
-          businessType: '',
-          biggestChallenge: '',
-          howDidYouHear: '',
-          honeypot: '',
-        });
-      } else {
-        throw new Error('Submission failed');
-      }
+      // With no-cors, we can't read the response, so we assume success
+      setIsSuccess(true);
+      // Reset form
+      setFormData({
+        businessName: '',
+        websiteUrl: '',
+        yourName: '',
+        email: '',
+        phone: '',
+        businessType: '',
+        biggestChallenge: '',
+        howDidYouHear: '',
+        honeypot: '',
+      });
     } catch (error) {
       console.error('Form submission error:', error);
       setErrors({ submit: 'Something went wrong. Please try again or email us directly.' });

@@ -183,7 +183,7 @@ export function LeadMagnetSection() {
                     <p className="text-lg text-gray-600 mb-4">
                       Get a <span className="font-bold text-orange-600">FREE custom audit</span>{' '}
                       with screenshots of your exact issues and step-by-step instructions to fix
-                      them—even if you never work with us.
+                      them - even if you never work with us.
                     </p>
                     <div className="flex flex-wrap gap-2 text-sm font-bold">
                       <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
@@ -455,7 +455,7 @@ export function LeadMagnetSection() {
                         icon: Target,
                         title: 'Screenshots of YOUR specific issues',
                         description:
-                          'Not generic advice—we show you exactly what's wrong on your site',
+                          'Not generic advice - we show you exactly what\'s wrong on your site',
                       },
                       {
                         icon: FileText,
@@ -470,7 +470,7 @@ export function LeadMagnetSection() {
                       {
                         icon: CheckCircle2,
                         title: 'Implement changes yourself or work with us',
-                        description: 'Your choice—we're here to help either way',
+                        description: 'Your choice - we\'re here to help either way',
                       },
                       {
                         icon: Clock,
@@ -529,7 +529,7 @@ export function LeadMagnetSection() {
                       issues holding you back, and create a detailed report with screenshots and
                       fix-it instructions.{' '}
                       <span className="font-bold text-orange-600">
-                        Implement the changes yourself or we can help—your choice.
+                        Implement the changes yourself or we can help - your choice.
                       </span>
                     </p>
                   </motion.div>

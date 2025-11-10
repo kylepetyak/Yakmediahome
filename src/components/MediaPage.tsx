@@ -1,6 +1,7 @@
 import { MediaHero } from './MediaHero';
-import { MediaTabsSection } from './MediaTabsSection';
-import { MediaTeamSection } from './MediaTeamSection';
+import { MediaMarquee } from './MediaMarquee';
+import { MediaServicesSection } from './MediaServicesSection';
+import { MediaQuote } from './MediaQuote';
 import { MediaFAQ } from './MediaFAQ';
 import { MediaClosingCTA } from './MediaClosingCTA';
 
@@ -12,8 +13,9 @@ export function MediaPage({ onContactClick }: MediaPageProps) {
   return (
     <div className="min-h-screen">
       <MediaHero />
-      <MediaTabsSection onContactClick={onContactClick} />
-      <MediaTeamSection />
+      <MediaMarquee />
+      <MediaServicesSection />
+      <MediaQuote />
       <MediaFAQ />
       <MediaClosingCTA onContactClick={onContactClick} />
     </div>

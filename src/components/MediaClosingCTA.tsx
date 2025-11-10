@@ -1,6 +1,5 @@
 import { Button } from './ui/button';
-
-import { Button } from './ui/button';
+import { motion } from 'motion/react';
 
 interface MediaClosingCTAProps {
   onContactClick?: () => void;
@@ -8,22 +7,29 @@ interface MediaClosingCTAProps {
 
 export function MediaClosingCTA({ onContactClick }: MediaClosingCTAProps) {
   return (
-    <section className="bg-gray-900 py-24 px-6">
+    <section className="bg-gray-900 py-32 px-6">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-          Every impression should earn its keep.
-        </h2>
-        
-        <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto">
-          Let's build a media system that grows your business.
-        </p>
-
-        <Button
-          onClick={onContactClick}
-          className="bg-orange-500 hover:bg-orange-600 text-white px-12 py-4 text-lg font-medium"
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
         >
-          Work With Us
-        </Button>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight">
+            Ready to Scale What Works?
+          </h2>
+
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
+            Let&apos;s build a media strategy that turns every dollar into measurable growth. No fluff, just performance.
+          </p>
+
+          <Button
+            onClick={onContactClick}
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-12 py-6 text-xl font-bold shadow-2xl hover:scale-105 transition-transform"
+          >
+            Get Started
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

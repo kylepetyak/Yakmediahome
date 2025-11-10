@@ -1,6 +1,7 @@
 import { StrategyHero } from './StrategyHero';
-import { StrategyTabsSection } from './StrategyTabsSection';
-import { StrategyTeamSection } from './StrategyTeamSection';
+import { StrategyMarquee } from './StrategyMarquee';
+import { StrategyServicesSection } from './StrategyServicesSection';
+import { StrategyQuote } from './StrategyQuote';
 import { StrategyFAQ } from './StrategyFAQ';
 import { StrategyClosingCTA } from './StrategyClosingCTA';
 
@@ -12,8 +13,9 @@ export function StrategyPageComponent({ onContactClick }: StrategyPageComponentP
   return (
     <div className="min-h-screen">
       <StrategyHero />
-      <StrategyTabsSection onContactClick={onContactClick} />
-      <StrategyTeamSection />
+      <StrategyMarquee />
+      <StrategyServicesSection />
+      <StrategyQuote />
       <StrategyFAQ />
       <StrategyClosingCTA onContactClick={onContactClick} />
     </div>

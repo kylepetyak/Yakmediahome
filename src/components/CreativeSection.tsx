@@ -96,7 +96,7 @@ export function CreativeSection({ onLearnMoreClick }: CreativeSectionProps) {
                 className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 text-lg font-bold shadow-lg"
                 onClick={onLearnMoreClick}
               >
-                View Our Creative Work
+                How We Help
               </Button>
             </motion.div>
           </div>

@@ -160,11 +160,11 @@ export function LeadMagnetSection() {
                 <CheckCircle2 className="w-16 h-16 text-green-500" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                Thanks! We've Got Everything We Need.
+                Success! Your Growth Roadmap Is On Its Way 🚀
               </h3>
               <p className="text-lg text-gray-700">
-                Our team is analyzing your digital presence and will send your custom audit report
-                with screenshots and action steps within 24 hours. Check your email!
+                Our team is analyzing your digital presence right now. You&apos;ll receive your
+                custom Success Guide with screenshots and action steps within 24 hours. Check your email!
               </p>
             </motion.div>
           )}
@@ -176,15 +176,16 @@ export function LeadMagnetSection() {
                 <div className="bg-white rounded-2xl shadow-xl p-8">
                   <div className="mb-6">
                     <div className="inline-block bg-orange-100 text-orange-600 text-sm font-bold px-4 py-2 rounded-full mb-4">
-                      THE LOCAL GROWTH AUDIT
+                      FREE SUCCESS GUIDE
                     </div>
                     <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 leading-tight">
-                      You&apos;re Losing Customers. Here&apos;s Why (And How to Fix It)
+                      Get Your Custom Growth Roadmap (Completely Free)
                     </h2>
                     <p className="text-lg text-gray-600 mb-4">
-                      Get a <span className="font-bold text-orange-600">FREE custom audit</span>{' '}
-                      with screenshots of your exact issues and step-by-step instructions to fix
-                      them - even if you never work with us.
+                      Discover exactly what&apos;s holding your business back and get a{' '}
+                      <span className="font-bold text-orange-600">custom Success Guide</span> with
+                      screenshots of your specific issues plus step-by-step instructions to fix them -
+                      whether you work with us or not.
                     </p>
                     <div className="flex flex-wrap gap-2 text-sm font-bold">
                       <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
@@ -424,7 +425,7 @@ export function LeadMagnetSection() {
                       disabled={isSubmitting}
                       className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-6 text-xl font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isSubmitting ? 'Submitting...' : 'Get My Free Audit Now'}
+                      {isSubmitting ? 'Submitting...' : 'Get My Free Success Guide'}
                     </Button>
 
                     {/* Trust Builders */}
@@ -511,7 +512,7 @@ export function LeadMagnetSection() {
                   >
                     <h4 className="text-lg font-black text-gray-900 mb-3">Why are we giving this away?</h4>
                     <p className="text-gray-700 leading-relaxed">
-                      Simple: We&apos;d rather prove our expertise by helping you first. Take the report
+                      Simple: We&apos;d rather prove our expertise by helping you first. Take the Success Guide
                       and implement the fixes yourself, or if you want help, we&apos;re here.{' '}
                       <span className="font-bold">No pressure either way.</span>
                     </p>
@@ -527,8 +528,8 @@ export function LeadMagnetSection() {
                   >
                     <p className="text-gray-700 leading-relaxed">
                       Our team will personally review your digital presence, identify the 10 biggest
-                      issues holding you back, and create a detailed report with screenshots and
-                      fix-it instructions.{' '}
+                      issues holding you back, and create a custom Success Guide with screenshots and
+                      step-by-step instructions.{' '}
                       <span className="font-bold text-orange-600">
                         Implement the changes yourself or we can help - your choice.
                       </span>

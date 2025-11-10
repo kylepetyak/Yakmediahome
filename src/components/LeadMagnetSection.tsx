@@ -178,7 +178,7 @@ export function LeadMagnetSection() {
                       THE LOCAL GROWTH AUDIT
                     </div>
                     <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 leading-tight">
-                      You're Losing Customers. Here's Why (And How to Fix It)
+                      You&apos;re Losing Customers. Here&apos;s Why (And How to Fix It)
                     </h2>
                     <p className="text-lg text-gray-600 mb-4">
                       Get a <span className="font-bold text-orange-600">FREE custom audit</span>{' '}
@@ -359,7 +359,7 @@ export function LeadMagnetSection() {
                         htmlFor="biggestChallenge"
                         className="block text-sm font-bold text-gray-700 mb-2"
                       >
-                        What's your biggest challenge right now?{' '}
+                        What&apos;s your biggest challenge right now?{' '}
                         <span className="text-gray-400 text-xs">(Optional)</span>
                       </label>
                       <textarea
@@ -459,7 +459,7 @@ export function LeadMagnetSection() {
                       },
                       {
                         icon: FileText,
-                        title: 'Detailed explanations of what's wrong',
+                        title: 'Detailed explanations of what is wrong',
                         description: 'Understand why each issue is costing you customers',
                       },
                       {
@@ -510,8 +510,8 @@ export function LeadMagnetSection() {
                   >
                     <h4 className="text-lg font-black text-gray-900 mb-3">Why are we giving this away?</h4>
                     <p className="text-gray-700 leading-relaxed">
-                      Simple: We'd rather prove our expertise by helping you first. Take the report
-                      and implement the fixes yourself, or if you want help, we're here.{' '}
+                      Simple: We&apos;d rather prove our expertise by helping you first. Take the report
+                      and implement the fixes yourself, or if you want help, we&apos;re here.{' '}
                       <span className="font-bold">No pressure either way.</span>
                     </p>
                   </motion.div>

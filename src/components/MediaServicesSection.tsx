@@ -4,24 +4,39 @@ export function MediaServicesSection() {
   const services = [
     {
       number: '01',
-      title: 'Paid Social AOR',
+      title: 'Paid Social That Actually Converts',
+      subtitle: 'We run paid social campaigns that get real results — not vanity metrics.',
       description:
-        'Full-service social media advertising across all major platforms. We handle strategy, creative direction, media buying, and optimization to drive measurable ROI. From prospecting to retargeting, we build campaigns that convert at every stage of the funnel.',
-      image: '/images/media-paid-social.jpg',
+        'From new customer acquisition to retargeting past visitors, we manage your full ad funnel so every click has a purpose.',
+      features: [
+        'Facebook & Instagram ads that drive calls, form fills, and messages',
+        'TikTok and YouTube ads that build awareness and local authority',
+        'Retargeting systems that turn attention into repeat business',
+      ],
     },
     {
       number: '02',
-      title: 'DIGITAL MEDIA AOR',
+      title: 'Digital Ads Built to Grow Your Local Reach',
+      subtitle: 'Search, display, and video ads that make your business visible everywhere your customers are.',
       description:
-        'Comprehensive digital media management spanning paid search, display, video, and programmatic. We unify your digital presence with data-driven strategies that maximize efficiency and performance across channels. Every placement optimized, every impression counted.',
-      image: '/images/media-digital.jpg',
+        'We connect your paid channels into one cohesive system that maximizes efficiency and return.',
+      features: [
+        'Google Search campaigns that capture buyers when they\'re ready',
+        'YouTube and Display ads that boost local visibility',
+        'Smart budget allocation to cut waste and boost ROAS',
+      ],
     },
     {
       number: '03',
-      title: 'PERFORMANCE MEDIA CONSULTING',
+      title: 'Performance Media Audits & Consulting',
+      subtitle: 'Not ready for full management? No problem.',
       description:
-        'Strategic media consulting for brands that want expert guidance without full management. We audit your current approach, identify opportunities, and provide actionable recommendations to improve performance and scale what works.',
-      image: '/images/media-consulting.jpg',
+        'Our team can audit your current campaigns, identify missed opportunities, and show you exactly how to improve your performance.',
+      features: [
+        'Deep-dive campaign analysis (Meta + Google)',
+        'Clear action plan to fix tracking, targeting, and creative gaps',
+        'Guidance to scale what\'s working and cut what\'s not',
+      ],
     },
   ];
 
@@ -43,12 +58,23 @@ export function MediaServicesSection() {
                 <div className="text-blue-500 text-8xl font-black mb-6 opacity-20">
                   {service.number}
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
                   {service.title}
                 </h3>
-                <p className="text-lg text-gray-300 leading-relaxed">
+                <p className="text-xl text-gray-300 mb-6 leading-relaxed">
+                  {service.subtitle}
+                </p>
+                <p className="text-lg text-gray-300 leading-relaxed mb-6">
                   {service.description}
                 </p>
+                <ul className="space-y-3">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-500 text-white text-sm font-bold flex-shrink-0">✓</span>
+                      <span className="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Image Placeholder */}

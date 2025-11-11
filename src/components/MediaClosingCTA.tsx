@@ -16,11 +16,11 @@ export function MediaClosingCTA({ onContactClick }: MediaClosingCTAProps) {
           transition={{ duration: 0.7 }}
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight">
-            Ready to Scale What Works?
+            Ready to See What Smart Advertising Can Do?
           </h2>
 
           <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
-            Let&apos;s build a media strategy that turns every dollar into measurable growth. No fluff, just performance.
+            Let&apos;s turn your ad spend into real growth. Book a free strategy call and we&apos;ll show you what&apos;s possible for your business in the next 30 days.
           </p>
 
           <Button

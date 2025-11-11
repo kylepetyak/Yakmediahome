@@ -9,7 +9,7 @@ export function MediaMarquee() {
               key={`first-${i}`}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-white mx-8"
             >
-              Drive Real Results.
+              Drive Real Results. Every Dollar. Every Day.
             </span>
           ))}
         </div>
@@ -21,7 +21,7 @@ export function MediaMarquee() {
               key={`second-${i}`}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-white mx-8"
             >
-              Drive Real Results.
+              Drive Real Results. Every Dollar. Every Day.
             </span>
           ))}
         </div>

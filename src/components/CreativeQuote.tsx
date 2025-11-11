@@ -11,11 +11,11 @@ export function CreativeQuote() {
           transition={{ duration: 0.7 }}
         >
           <div className="mb-8">
-            <span className="text-8xl text-white/20">"</span>
+            <span className="text-8xl text-white/20">&quot;</span>
           </div>
 
           <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-relaxed mb-12">
-            I've seen social media go from side dish and matching luggage to the very center of everything we do. And once you see the power of that you can never go back
+            Social media used to be an afterthought — the thing businesses did last. Now, it is the business. The brands winning today are the ones that show up consistently where people actually spend their time.
           </blockquote>
 
           <div className="flex flex-col items-center">
@@ -23,8 +23,8 @@ export function CreativeQuote() {
               <span className="text-3xl">👤</span>
             </div>
             <cite className="not-italic">
-              <div className="text-xl font-bold text-white mb-1">Rob Lenois</div>
-              <div className="text-sm text-white/80">Chief Creative Officer</div>
+              <div className="text-xl font-bold text-white mb-1">Kyle Petyak</div>
+              <div className="text-sm text-white/80">CEO, Yak Media</div>
             </cite>
           </div>
         </motion.div>

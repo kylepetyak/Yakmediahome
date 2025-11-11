@@ -4,24 +4,39 @@ export function CreativeServices() {
   const services = [
     {
       number: '01',
-      title: 'Social at the Center Creative AOR',
+      title: 'Social-First Creative That Sells',
+      subtitle: 'We make creative that turns attention into action.',
       description:
-        'The modern creative AOR built to win daily relevance by deeply understanding platforms and culture. We create and scale socially-informed campaigns that people actually care about — executing best-in-class ads and commercials that balance consumer needs with brand goals across every channel as scoped.',
-      image: '/images/creative-social.jpg', // Placeholder
+        'From Reels and TikToks to Facebook ads and YouTube Shorts, every piece we produce is built to attract local customers, not just rack up likes.',
+      features: [
+        'Platform-specific creative (we build for each platform, not just resize videos)',
+        'Shot and edited locally for your market',
+        'Fast turnaround so you can stay relevant in real time',
+      ],
     },
     {
       number: '02',
-      title: 'DIGITAL CREATIVE AOR',
+      title: 'Digital Ads Built for Local Growth',
+      subtitle: 'Your customers scroll — a lot. We make sure they see you.',
       description:
-        'Where culture meets conversion. We deliver organic + paid social and digital ads designed for attention, not just impressions. Our approach combines platform nuance, consumer insight, and brand strategy to create high-performing creative across every digital touchpoint— ensuring your brand shows up where it matters most.',
-      image: '/images/creative-digital.jpg', // Placeholder
+        'We combine organic social media with paid advertising to make your brand show up everywhere your customers spend time. Our ads don\'t chase impressions — they drive calls, messages, and foot traffic.',
+      features: [
+        'Meta + Google ads optimized for small business budgets',
+        'Retargeting campaigns that bring people back',
+        'Local SEO video and content built to dominate your city',
+      ],
     },
     {
       number: '03',
-      title: 'SOCIAL CREATIVE & PRODUCTION AOR',
+      title: 'Social Content & Production Made Simple',
+      subtitle: 'You don\'t need a Hollywood budget to get professional content.',
       description:
-        'The best in class consumer-centric social media ads to build brand. We drive daily relevance and build your brand with a commitment to "perfect" social content by using nuanced audience insights to create a high volume of contextual creative built for where attention sits today.',
-      image: '/images/creative-production.jpg', // Placeholder
+        'We shoot, edit, and deliver everything you need to look like a big brand online — without the big-agency nonsense.',
+      features: [
+        'Monthly content days for your business',
+        'All-in-one creative, ads, and analytics',
+        'Consistent social presence that builds trust and drives sales',
+      ],
     },
   ];
 
@@ -43,12 +58,23 @@ export function CreativeServices() {
                 <div className="text-orange-500 text-8xl font-black mb-6 opacity-20">
                   {service.number}
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
                   {service.title}
                 </h3>
-                <p className="text-lg text-gray-300 leading-relaxed">
+                <p className="text-xl text-gray-300 mb-6 leading-relaxed">
+                  {service.subtitle}
+                </p>
+                <p className="text-lg text-gray-300 leading-relaxed mb-6">
                   {service.description}
                 </p>
+                <ul className="space-y-3">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-500 text-white text-sm font-bold flex-shrink-0">✓</span>
+                      <span className="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Image Placeholder */}

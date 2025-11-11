@@ -7,24 +7,24 @@ export function CreativeFAQ() {
 
   const faqs = [
     {
-      question: 'Who leads the creative and strategy at Yakmedia?',
+      question: 'Who leads the creative and strategy at Yak Media?',
       answer:
-        'Our creative and strategy teams are led by industry veterans with unparalleled expertise in social-first marketing. Their deep understanding of platform dynamics and consumer behavior ensures every campaign is innovative, impactful, and designed for brand success.',
+        'Our creative and strategy are led by people who actually run campaigns for small businesses every day—not career "brand strategists." We know what works locally because we\'ve built it, shot it, and scaled it right here in Phoenix.',
     },
     {
-      question: 'How does strategic organic creative drive daily relevance for my brand?',
+      question: 'How does creative content help my small business grow?',
       answer:
-        "It's simple: we create content people actually want to watch. We use nuanced audience cohorts to develop strategic, contextual content that aligns with where your audience's attention is today, ensuring higher engagement and a stronger connection with your brand.",
+        'People buy from brands they recognize and trust. Our content keeps you in front of your audience daily—building credibility, engagement, and consistent inbound leads.',
     },
     {
-      question: 'Who are some of the clients you work with?',
+      question: 'Who do you work with?',
       answer:
-        "We're proud to partner with brands across industries including technology, healthcare, consumer goods, finance, and more. Our diverse client portfolio demonstrates our ability to create compelling creative that resonates across different markets and audiences.",
+        'We work with local businesses of all sizes—from solo operators to multi-location clinics and restaurants. Whether you need new content, better ads, or a full marketing system, we tailor our work to fit your budget and goals.',
     },
     {
-      question: 'What makes your creative approach different?',
+      question: 'What makes Yak Media different?',
       answer:
-        'We put social media at the center of everything we do. Our approach is built on deep platform understanding, cultural awareness, and data-informed creativity. We create high volumes of contextual content designed specifically for where attention sits today—not where it was yesterday.',
+        'We\'re not a typical agency. We don\'t charge $10K retainers or speak in buzzwords. We create what works—content that looks great, converts fast, and makes you money. Everything we build is tested, tracked, and tied to real results.',
     },
   ];
 
@@ -38,7 +38,7 @@ export function CreativeFAQ() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 text-center">
-            FAQS
+            FAQs
           </h2>
           <p className="text-xl text-gray-600 mb-12 text-center">
             Everything you need to know about our creative services

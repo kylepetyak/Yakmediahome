@@ -15,7 +15,7 @@ export function MediaQuote() {
           </div>
 
           <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-relaxed mb-12">
-            The best media strategy isn&apos;t about reaching everyone - it&apos;s about reaching the right people at the right time with the right message. That&apos;s where real growth happens
+            The best media strategy isn&apos;t about reaching everyone — it&apos;s about reaching the right people at the right time with the right message. That&apos;s where real growth happens.
           </blockquote>
 
           <div className="flex flex-col items-center">
@@ -23,8 +23,8 @@ export function MediaQuote() {
               <span className="text-3xl">👤</span>
             </div>
             <cite className="not-italic">
-              <div className="text-xl font-bold text-white mb-1">Media Strategy Team</div>
-              <div className="text-sm text-white/80">Performance Media Experts</div>
+              <div className="text-xl font-bold text-white mb-1">Yak Media Performance Team</div>
+              <div className="text-sm text-white/80">Media Specialists</div>
             </cite>
           </div>
         </motion.div>

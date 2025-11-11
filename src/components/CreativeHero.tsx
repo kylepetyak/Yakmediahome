@@ -11,11 +11,19 @@ export function CreativeHero() {
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-          Modern marketing starts with great organic social media creative.
+          Modern marketing starts with great social media content.
         </h1>
 
-        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-          That's why we've built a modern creative engine designed to drive daily relevance and produce work that resonates with your audience. In other words, we make things people actually want to watch.
+        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4">
+          But most small businesses don&apos;t have the time, team, or strategy to make it work.
+        </p>
+
+        <p className="text-xl md:text-2xl text-white font-semibold max-w-4xl mx-auto leading-relaxed mb-4">
+          That&apos;s where we come in.
+        </p>
+
+        <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          Yak Media is a creative and advertising agency built for local businesses — restaurants, clinics, gyms, service pros, and small brands that want to grow fast without wasting money. We create scroll-stopping videos, photos, and ads that make people actually care about your business — and more importantly, take action.
         </p>
       </div>
 

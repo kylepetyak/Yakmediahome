@@ -9,7 +9,7 @@ export function CreativeMarquee() {
               key={`first-${i}`}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-white mx-8"
             >
-              Build Brand Relevance.
+              Build Brand Relevance. Drive Local Results.
             </span>
           ))}
         </div>
@@ -21,7 +21,7 @@ export function CreativeMarquee() {
               key={`second-${i}`}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-white mx-8"
             >
-              Build Brand Relevance.
+              Build Brand Relevance. Drive Local Results.
             </span>
           ))}
         </div>

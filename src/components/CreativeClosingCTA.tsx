@@ -16,11 +16,11 @@ export function CreativeClosingCTA({ onContactClick }: CreativeClosingCTAProps) 
           transition={{ duration: 0.7 }}
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight">
-            Ready to Build Brand Relevance?
+            Ready to Grow Your Business?
           </h2>
 
           <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
-            Let's create content that people actually want to watch. Start your journey to daily relevance today.
+            Let&apos;s make content that actually drives results for your business. Schedule your free strategy call — and we&apos;ll show you exactly how to turn local attention into revenue.
           </p>
 
           <Button

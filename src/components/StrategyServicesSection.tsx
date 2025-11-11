@@ -4,24 +4,39 @@ export function StrategyServicesSection() {
   const services = [
     {
       number: '01',
-      title: 'Brand Strategy & Positioning',
+      title: 'Brand Strategy & Positioning for Local Businesses',
+      subtitle: 'We help you clarify your brand — what makes you different, who you serve, and how you show up.',
       description:
-        'We help you define who you are, what you stand for, and how you show up in the market. From brand architecture to messaging frameworks, we create strategic foundations that guide every decision and drive long-term growth.',
-      image: '/images/strategy-brand.jpg',
+        'Then we build a plan to make sure your story hits the right audience, in the right way, across every channel.',
+      features: [
+        'Clarify your brand voice and identity',
+        'Create a message that connects with your ideal customers',
+        'Build a consistent online presence that drives recognition and trust',
+      ],
     },
     {
       number: '02',
-      title: 'DIGITAL TRANSFORMATION STRATEGY',
+      title: 'Digital Strategy That Modernizes Your Marketing',
+      subtitle: 'Most small businesses are running on outdated marketing habits.',
       description:
-        'Modernize your marketing approach for today&apos;s digital-first world. We audit your current state, identify opportunities, and build roadmaps that transform how you reach customers, measure performance, and scale what works.',
-      image: '/images/strategy-digital.jpg',
+        'We help you modernize by building a digital strategy that connects your website, social media, and paid ads into one system that actually works together.',
+      features: [
+        'Audit your current marketing setup and fix the gaps',
+        'Identify new digital opportunities in your local market',
+        'Create a simple roadmap that ties creative, content, and ads into one ecosystem',
+      ],
     },
     {
       number: '03',
-      title: 'GROWTH STRATEGY & PLANNING',
+      title: 'Growth Strategy & Planning That Drives Real Revenue',
+      subtitle: 'Growth doesn\'t happen by accident — it\'s engineered.',
       description:
-        'Strategic growth planning grounded in data and consumer insights. We analyze your market, identify high-value opportunities, and create actionable plans that drive sustainable business growth across all channels.',
-      image: '/images/strategy-growth.jpg',
+        'We analyze your data, map out your funnel, and build step-by-step plans that scale what\'s already working while opening new revenue streams.',
+      features: [
+        'Track the right metrics (leads, ROAS, LTV — not vanity numbers)',
+        'Find high-ROI opportunities hidden in your current marketing',
+        'Build repeatable systems for lead generation and retention',
+      ],
     },
   ];
 
@@ -43,12 +58,23 @@ export function StrategyServicesSection() {
                 <div className="text-purple-500 text-8xl font-black mb-6 opacity-20">
                   {service.number}
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
                   {service.title}
                 </h3>
-                <p className="text-lg text-gray-300 leading-relaxed">
+                <p className="text-xl text-gray-300 mb-6 leading-relaxed">
+                  {service.subtitle}
+                </p>
+                <p className="text-lg text-gray-300 leading-relaxed mb-6">
                   {service.description}
                 </p>
+                <ul className="space-y-3">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-500 text-white text-sm font-bold flex-shrink-0">✓</span>
+                      <span className="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Image Placeholder */}

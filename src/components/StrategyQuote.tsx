@@ -15,7 +15,7 @@ export function StrategyQuote() {
           </div>
 
           <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-relaxed mb-12">
-            The best strategies don&apos;t live in decks - they live in execution. We build plans designed to be implemented, not admired
+            The best strategies don&apos;t live in decks — they live in execution. We build plans designed to be implemented, not admired.
           </blockquote>
 
           <div className="flex flex-col items-center">
@@ -23,8 +23,8 @@ export function StrategyQuote() {
               <span className="text-3xl">👤</span>
             </div>
             <cite className="not-italic">
-              <div className="text-xl font-bold text-white mb-1">Strategy Team</div>
-              <div className="text-sm text-white/80">Strategic Planning Experts</div>
+              <div className="text-xl font-bold text-white mb-1">Yak Media Strategy Team</div>
+              <div className="text-sm text-white/80">Strategic Planners</div>
             </cite>
           </div>
         </motion.div>

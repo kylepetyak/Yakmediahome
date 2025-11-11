@@ -11,11 +11,19 @@ export function MediaHero() {
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-          Performance-first media buying built for modern platforms and real business outcomes.
+          Performance-First Advertising for Local Businesses
         </h1>
 
-        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-          We don&apos;t just buy ads - we architect full-funnel media strategies that turn attention into revenue. Every dollar tracked, every placement optimized, every campaign built to scale.
+        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4">
+          We don&apos;t just run ads—we build systems that grow your business.
+        </p>
+
+        <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4">
+          Yak Media helps small businesses turn attention into revenue with smart, full-funnel advertising across Meta, Google, YouTube, TikTok, and more.
+        </p>
+
+        <p className="text-lg md:text-xl text-white font-semibold max-w-4xl mx-auto leading-relaxed">
+          Every dollar is tracked. Every ad is optimized. Every campaign is designed to bring in more leads, calls, and customers.
         </p>
       </div>
 

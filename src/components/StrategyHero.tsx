@@ -11,11 +11,15 @@ export function StrategyHero() {
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-          Data-driven strategy that turns insights into action and attention into revenue.
+          Data-Driven Strategy That Turns Insights Into Action
         </h1>
 
-        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-          We don&apos;t do strategy decks that sit on a shelf. We build living, breathing plans grounded in consumer behavior, platform dynamics, and real business goals. Strategy that actually ships.
+        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4">
+          Most agencies sell &quot;strategy decks&quot; that sit on a shelf. We build plans that actually ship — rooted in how real customers behave, where they spend time online, and what makes them buy.
+        </p>
+
+        <p className="text-lg md:text-xl text-white font-semibold max-w-4xl mx-auto leading-relaxed">
+          Our strategies are simple: understand your audience, create a clear roadmap, and execute relentlessly. Every plan is built to grow your business — not just look good in a presentation.
         </p>
       </div>
 

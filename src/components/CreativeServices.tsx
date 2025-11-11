@@ -4,68 +4,89 @@ export function CreativeServices() {
   const services = [
     {
       number: '01',
-      title: 'Social at the Center Creative AOR',
+      title: 'Social-First Creative That Sells',
+      subtitle: 'We make creative that turns attention into action.',
       description:
-        'The modern creative AOR built to win daily relevance by deeply understanding platforms and culture. We create and scale socially-informed campaigns that people actually care about — executing best-in-class ads and commercials that balance consumer needs with brand goals across every channel as scoped.',
-      image: '/images/creative-social.jpg', // Placeholder
+        'From Reels and TikToks to Facebook ads and YouTube Shorts, every piece we produce is built to attract local customers—not just rack up likes.',
+      features: [
+        'Platform-specific creative (built for each platform, not just resized)',
+        'Shot and edited locally for your market',
+        'Fast turnaround so you can stay relevant in real time',
+      ],
     },
     {
       number: '02',
-      title: 'DIGITAL CREATIVE AOR',
+      title: 'Digital Ads Built for Local Growth',
+      subtitle: 'Your customers scroll—a lot. We make sure they see you.',
       description:
-        'Where culture meets conversion. We deliver organic + paid social and digital ads designed for attention, not just impressions. Our approach combines platform nuance, consumer insight, and brand strategy to create high-performing creative across every digital touchpoint— ensuring your brand shows up where it matters most.',
-      image: '/images/creative-digital.jpg', // Placeholder
+        'We combine organic social media with paid advertising to make your brand show up everywhere your customers spend time. Our ads don\'t chase impressions—they drive calls, messages, and foot traffic.',
+      features: [
+        'Meta + Google ads optimized for small business budgets',
+        'Retargeting campaigns that bring people back',
+        'Local SEO video and content built to dominate your city',
+      ],
     },
     {
       number: '03',
-      title: 'SOCIAL CREATIVE & PRODUCTION AOR',
+      title: 'Social Content & Production Made Simple',
+      subtitle: 'You don\'t need a Hollywood budget to look like a big brand online.',
       description:
-        'The best in class consumer-centric social media ads to build brand. We drive daily relevance and build your brand with a commitment to "perfect" social content by using nuanced audience insights to create a high volume of contextual creative built for where attention sits today.',
-      image: '/images/creative-production.jpg', // Placeholder
+        'We shoot, edit, and deliver everything you need to show up consistently—without the big-agency nonsense.',
+      features: [
+        'Monthly content days for your business',
+        'All-in-one creative, ads, and analytics',
+        'Consistent social presence that builds trust and drives sales',
+      ],
     },
   ];
 
   return (
-    <section className="bg-gray-900 py-24 px-6">
-      <div className="max-w-7xl mx-auto">
-        {services.map((service, index) => (
-          <motion.div
-            key={service.number}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-            className={`mb-24 ${index === services.length - 1 ? 'mb-0' : ''}`}
-          >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Text Content */}
-              <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <div className="text-orange-500 text-8xl font-black mb-6 opacity-20">
-                  {service.number}
+    <section id="creative" className="bg-white">
+      {services.map((service, index) => (
+        <div key={service.number}>
+          <div className="px-6 py-16 md:py-20 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6 }}
+              className="grid gap-8 md:grid-cols-2 md:items-start"
+            >
+              <div>
+                <div className="text-sm font-semibold text-gray-500">{service.number}</div>
+                <h2 className="mt-1 text-2xl md:text-3xl font-bold text-gray-900">{service.title}</h2>
+                <p className="mt-2 text-gray-700">{service.subtitle}</p>
+                <div className="mt-4 text-gray-800 leading-relaxed">
+                  <p>{service.description}</p>
+                  <ul className="mt-6 space-y-3">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full border border-gray-300 text-sm">✓</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  {service.title}
-                </h3>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  {service.description}
-                </p>
               </div>
 
-              {/* Image Placeholder */}
-              <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                <div className="aspect-video bg-gradient-to-br from-orange-500/20 to-gray-800 rounded-2xl overflow-hidden">
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-center text-gray-600">
-                      <div className="text-6xl mb-4">📸</div>
-                      <p className="text-sm">Creative showcase image</p>
-                    </div>
-                  </div>
+              <div className="order-first md:order-none">
+                <div className="aspect-video rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400">
+                  <span className="text-sm">Creative showcase image</span>
                 </div>
               </div>
+            </motion.div>
+          </div>
+
+          {/* Showcase image placeholder between sections */}
+          {index < services.length - 1 && (
+            <div className="px-6 max-w-6xl mx-auto -mt-8 md:-mt-10 mb-8">
+              <div className="aspect-[3/1] rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400">
+                <span className="text-sm">Additional showcase carousel / image strip</span>
+              </div>
             </div>
-          </motion.div>
-        ))}
-      </div>
+          )}
+        </div>
+      ))}
     </section>
   );
 }

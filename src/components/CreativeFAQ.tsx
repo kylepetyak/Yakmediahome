@@ -38,7 +38,7 @@ export function CreativeFAQ() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 text-center">
-            FAQS
+            FAQs
           </h2>
           <p className="text-xl text-gray-600 mb-12 text-center">
             Everything you need to know about our creative services

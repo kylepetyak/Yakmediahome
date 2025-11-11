@@ -1,6 +1,7 @@
 import { MediaPage } from './MediaPage';
 import { StrategyPageComponent } from './StrategyPageComponent';
 import { CreativePage } from './CreativePage';
+import { IntegratedPage } from './IntegratedPage';
 import { ServicesHero } from './ServicesHero';
 import { ServicesIntro } from './ServicesIntro';
 import { ServicesTabs } from './ServicesTabs';
@@ -28,7 +29,12 @@ export function ServicesPage({ serviceType, onContactClick }: ServicesPageProps)
   if (serviceType === 'strategy') {
     return <StrategyPageComponent onContactClick={onContactClick} />;
   }
-  
+
+  // Render dedicated integrated page
+  if (serviceType === 'integrated') {
+    return <IntegratedPage onContactClick={onContactClick} />;
+  }
+
   // Render general services page for other service types
   return (
     <div className="min-h-screen">

@@ -20,7 +20,7 @@ export function StrategyClosingCTA({ onContactClick }: StrategyClosingCTAProps) 
           </h2>
 
           <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
-            Let&apos;s create a plan grounded in data, designed for execution, and built to drive real growth.
+            Let&apos;s create a plan grounded in data, designed for execution, and built to drive real growth for your business.
           </p>
 
           <Button

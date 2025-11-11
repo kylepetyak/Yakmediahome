@@ -8,15 +8,19 @@ import {
 const faqData = [
   {
     question: "How is Yak Media's strategy different?",
-    answer: "We don't create one big idea and hope it lasts—we build systems that adapt in real time based on data, culture, and consumer behavior. Our strategies are living, breathing frameworks that evolve with your audience and the platforms they use."
+    answer: "We don't believe in one-time strategy decks. Our plans evolve in real time based on data, customer behavior, and what's actually working on the platforms your audience uses. Every strategy we deliver is connected directly to creative and media execution — no silos, no fluff, just results."
   },
   {
-    question: "What if my brand already has a strategy?",
-    answer: "Perfect. We'll plug in, stress test it, and layer in platform-first execution so it works in today's world. We're not here to tear down what's working—we're here to make it work better in the attention economy."
+    question: "What if I already have a strategy?",
+    answer: "Perfect. We'll plug in, pressure-test it, and make it perform better in the current attention economy. We'll refine your targeting, optimize your message, and align your media so it works across every platform."
   },
   {
-    question: "How do you make sure strategy connects to results?",
-    answer: "Our plans are tied directly to creative and media execution. No silos—everything works together toward growth. Every strategic recommendation comes with clear success metrics and implementation steps that our teams can execute immediately."
+    question: "Do I need strategy if I already run ads?",
+    answer: "Yes — because ads without strategy are just expensive experiments. We make sure every campaign, post, and piece of creative fits into a clear growth plan designed to get measurable results."
+  },
+  {
+    question: "What does the process look like?",
+    answer: "Audit your brand, data, and current marketing. Analyze what's working (and what's not). Plan a step-by-step growth roadmap. Execute creative and ads tied directly to your goals. You'll know exactly where your marketing dollars go — and what they return."
   }
 ];
 

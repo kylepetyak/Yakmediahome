@@ -9,7 +9,7 @@ export function StrategyMarquee() {
               key={`first-${i}`}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-white mx-8"
             >
-              Strategy That Ships.
+              Strategy That Ships. Built for Growth.
             </span>
           ))}
         </div>
@@ -21,7 +21,7 @@ export function StrategyMarquee() {
               key={`second-${i}`}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-white mx-8"
             >
-              Strategy That Ships.
+              Strategy That Ships. Built for Growth.
             </span>
           ))}
         </div>

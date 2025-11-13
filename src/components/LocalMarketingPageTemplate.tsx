@@ -3,6 +3,8 @@ import { ArrowRight, Lightbulb, Target, BarChart3, Zap, ChevronDown } from "luci
 import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { LocalContactForm } from "./LocalContactForm";
+import { LocalTrustSignals } from "./LocalTrustSignals";
+import { LocalPageFooter } from "./LocalPageFooter";
 
 export interface CityData {
   city: string;
@@ -130,13 +132,19 @@ export function LocalMarketingPageTemplate({ cityData }: LocalMarketingPageTempl
         </div>
       </section>
 
+      {/* Trust Signals - NEW */}
+      <LocalTrustSignals cityName={cityData.city} />
+
       {/* Introduction: Why Local Businesses Need Modern Marketing */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl text-black mb-6">
-              Why {cityData.city} Businesses Need Modern Marketing
+              {cityData.city} Digital Marketing Services That Drive Results
             </h2>
+            <p className="text-xl text-gray-600">
+              Social Media Marketing, Paid Advertising &amp; Content Creation for {cityData.city} Businesses
+            </p>
           </div>
           <div className="space-y-6 text-lg md:text-xl text-gray-700 leading-relaxed">
             <p>
@@ -174,10 +182,10 @@ export function LocalMarketingPageTemplate({ cityData }: LocalMarketingPageTempl
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl text-black mb-4">
-              Our Services: Built to Drive Growth in {cityData.city}
+              {cityData.city} Marketing Services: Social Media, Paid Ads &amp; Content Creation
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Comprehensive marketing services designed for the competitive {cityData.city} market
+              Full-service digital marketing agency serving {cityData.city}, AZ businesses
             </p>
           </div>
           
@@ -221,8 +229,11 @@ export function LocalMarketingPageTemplate({ cityData }: LocalMarketingPageTempl
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl">
-                Why {cityData.city} Businesses Choose Yak Media
+                Best Marketing Agency in {cityData.city}, Arizona
               </h2>
+              <h3 className="text-xl text-gray-300">
+                Expert Social Media Marketing &amp; Paid Advertising Services
+              </h3>
               <p className="text-lg text-gray-300 leading-relaxed">
                 {cityData.city} businesses choose Yak Media because we understand the local market while also bringing global advertising expertise. Whether you're a {cityData.city === 'Scottsdale' ? 'luxury resort' : cityData.city === 'Tempe' ? 'startup' : cityData.city === 'Mesa' ? 'healthcare brand' : cityData.city === 'Chandler' ? 'tech company' : cityData.city === 'Gilbert' ? 'family business' : cityData.city === 'Glendale' ? 'sports bar' : 'local restaurant'}, we know how to reach your audience and turn attention into growth.
               </p>
@@ -284,10 +295,10 @@ export function LocalMarketingPageTemplate({ cityData }: LocalMarketingPageTempl
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl text-black mb-4">
-              Frequently Asked Questions
+              {cityData.city} Marketing Agency FAQs
             </h2>
             <p className="text-lg text-gray-600">
-              Common questions about marketing services in {cityData.city}
+              Answers to common questions about social media marketing, paid ads &amp; content creation in {cityData.city}, AZ
             </p>
           </div>
           
@@ -371,6 +382,9 @@ export function LocalMarketingPageTemplate({ cityData }: LocalMarketingPageTempl
           </div>
         </div>
       </section>
+
+      {/* NAP Footer - NEW */}
+      <LocalPageFooter cityName={cityData.city} />
     </div>
   );
 }

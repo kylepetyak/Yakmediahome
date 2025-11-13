@@ -195,3 +195,29 @@ export const glendaleData: CityData = {
   ],
   metaDescription: "Sports and entertainment marketing specialists in Glendale, AZ. Capture the energy of Arizona's entertainment capital with dynamic digital marketing campaigns."
 };
+
+// FAQ data for local pages (for schema markup)
+export function getCityFAQs(cityName: string) {
+  return [
+    {
+      question: `What makes Yak Media different from other ${cityName} marketing agencies?`,
+      answer: "We combine content creation + paid ads under one roof, so creative and media aren't siloed. This integrated approach delivers faster, more measurable growth."
+    },
+    {
+      question: `How much does marketing cost in ${cityName}?`,
+      answer: "Budgets vary, but most local businesses see strong results investing $2,500–$5,000/month in combined creative + media management. We'll customize a plan that matches your goals."
+    },
+    {
+      question: `Which platforms are best for ${cityName} businesses?`,
+      answer: "For most local businesses, Meta (Facebook + Instagram), Google Search/Display, and TikTok deliver the best results. For B2B, we often layer in LinkedIn ads."
+    },
+    {
+      question: "Do you only work with large companies?",
+      answer: "No — we work with both local small businesses and growing regional brands. Whether you're a single-location restaurant or a multi-city startup, we'll build a plan that works for you."
+    },
+    {
+      question: "How quickly can I expect results?",
+      answer: `Most ${cityName} clients see momentum in the first 30–60 days with full ROI lift over 3–6 months, depending on spend and goals.`
+    }
+  ];
+}

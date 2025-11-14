@@ -243,11 +243,21 @@ function updateSchema(schemaData: any) {
   if (existingSchema) {
     existingSchema.remove();
   }
-  
+
   // Add new schema
   const script = document.createElement('script');
   script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(schemaData);
+
+  // If schemaData is an array, wrap it in @graph
+  if (Array.isArray(schemaData)) {
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": schemaData
+    });
+  } else {
+    script.textContent = JSON.stringify(schemaData);
+  }
+
   document.head.appendChild(script);
 }
 
@@ -574,3 +584,16 @@ export const getLocalBusinessSchema = (city: string, state: string, geoCoordinat
   ]
   };
 };
+
+export const getFAQSchema = (faqs: Array<{question: string; answer: string}>) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+});

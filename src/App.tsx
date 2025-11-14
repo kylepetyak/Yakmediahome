@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate, useParams } from "react-router-dom";
 import { useEffect, Suspense, lazy, useState, Component, ErrorInfo, ReactNode } from "react";
-import { SEOHead, getCompanySchema, getServiceSchema, getLocalBusinessSchema } from "./components/SEOHead";
+import { SEOHead, getCompanySchema, getServiceSchema, getLocalBusinessSchema, getFAQSchema } from "./components/SEOHead";
 import { AccessibilityEnhancer } from "./components/AccessibilityEnhancer";
 import { Toaster } from "./components/ui/sonner";
 import { PerformanceOptimizer } from "./components/PerformanceOptimizer";
 import { CriticalCSS } from "./components/CriticalCSS";
 import { ResourcePreloader } from "./components/ResourcePreloader";
-import { phoenixData, scottsdaleData, tempeData, mesaData, chandlerData, gilbertData, glendaleData } from "./components/cityData";
+import { phoenixData, scottsdaleData, tempeData, mesaData, chandlerData, gilbertData, glendaleData, getCityFAQs } from "./components/cityData";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -430,7 +430,10 @@ function PhoenixPageRoute() {
       title="Best Marketing Agency Phoenix AZ | 4.9★ Rated | Yak Media"
       description="#1 Phoenix marketing agency (4.9/5★). We help local businesses grow 250%+ with creative content, paid ads & social media. Free consultation → (480) 244-6470"
       path="/phoenix"
-      schemaData={getLocalBusinessSchema("Phoenix", "Arizona", phoenixData.geoCoordinates)}
+      schemaData={[
+        getLocalBusinessSchema("Phoenix", "Arizona", phoenixData.geoCoordinates),
+        getFAQSchema(getCityFAQs("Phoenix"))
+      ]}
     >
       <Suspense fallback={<LoadingSpinner />}>
         <PhoenixPage onContactClick={() => navigate('/contact')} />
@@ -447,7 +450,10 @@ function ScottsdalePageRoute() {
       title="Luxury Marketing Agency Scottsdale AZ | 4.9★ | Yak Media"
       description="Top Scottsdale marketing agency (4.9★) for luxury brands. Premium digital marketing, creative content & paid ads for upscale businesses. Call (480) 244-6470"
       path="/scottsdale"
-      schemaData={getLocalBusinessSchema("Scottsdale", "Arizona", scottsdaleData.geoCoordinates)}
+      schemaData={[
+        getLocalBusinessSchema("Scottsdale", "Arizona", scottsdaleData.geoCoordinates),
+        getFAQSchema(getCityFAQs("Scottsdale"))
+      ]}
     >
       <Suspense fallback={<LoadingSpinner />}>
         <ScottsdalePage onContactClick={() => navigate('/contact')} />
@@ -464,7 +470,10 @@ function TempePageRoute() {
       title="Marketing Agency Tempe AZ | ASU & Tech Marketing | 4.9★ Rated"
       description="Top Tempe marketing agency (4.9★) serving ASU businesses & tech startups. Social media, paid ads & content creation that drives results. Call (480) 244-6470"
       path="/tempe"
-      schemaData={getLocalBusinessSchema("Tempe", "Arizona", tempeData.geoCoordinates)}
+      schemaData={[
+        getLocalBusinessSchema("Tempe", "Arizona", tempeData.geoCoordinates),
+        getFAQSchema(getCityFAQs("Tempe"))
+      ]}
     >
       <Suspense fallback={<LoadingSpinner />}>
         <TempePage onContactClick={() => navigate('/contact')} />
@@ -481,7 +490,10 @@ function MesaPageRoute() {
       title="Marketing Agency Mesa AZ | Healthcare & Local Biz | 4.9★ Rated"
       description="Top Mesa marketing agency (4.9★) for healthcare, retail & local businesses. Creative content + paid ads that work. Free consultation → (480) 244-6470"
       path="/mesa"
-      schemaData={getLocalBusinessSchema("Mesa", "Arizona", mesaData.geoCoordinates)}
+      schemaData={[
+        getLocalBusinessSchema("Mesa", "Arizona", mesaData.geoCoordinates),
+        getFAQSchema(getCityFAQs("Mesa"))
+      ]}
     >
       <Suspense fallback={<LoadingSpinner />}>
         <MesaPage onContactClick={() => navigate('/contact')} />
@@ -498,7 +510,10 @@ function ChandlerPageRoute() {
       title="B2B Marketing Agency Chandler AZ | Tech Marketing | 4.9★ Rated"
       description="#1 Chandler marketing agency (4.9★) for B2B & tech companies. LinkedIn ads, demand gen & strategic marketing in Intel/PayPal corridor. Call (480) 244-6470"
       path="/chandler"
-      schemaData={getLocalBusinessSchema("Chandler", "Arizona", chandlerData.geoCoordinates)}
+      schemaData={[
+        getLocalBusinessSchema("Chandler", "Arizona", chandlerData.geoCoordinates),
+        getFAQSchema(getCityFAQs("Chandler"))
+      ]}
     >
       <Suspense fallback={<LoadingSpinner />}>
         <ChandlerPage onContactClick={() => navigate('/contact')} />
@@ -515,7 +530,10 @@ function GilbertPageRoute() {
       title="Marketing Agency Gilbert AZ | Family Business Marketing | 4.9★"
       description="#1 Gilbert marketing agency (4.9★) for family businesses & local services. Facebook ads, Google marketing & authentic content. Free call → (480) 244-6470"
       path="/gilbert"
-      schemaData={getLocalBusinessSchema("Gilbert", "Arizona", gilbertData.geoCoordinates)}
+      schemaData={[
+        getLocalBusinessSchema("Gilbert", "Arizona", gilbertData.geoCoordinates),
+        getFAQSchema(getCityFAQs("Gilbert"))
+      ]}
     >
       <Suspense fallback={<LoadingSpinner />}>
         <GilbertPage onContactClick={() => navigate('/contact')} />
@@ -532,7 +550,10 @@ function GlendalePageRoute() {
       title="Sports Marketing Agency Glendale AZ | Entertainment | 4.9★"
       description="Top Glendale marketing agency (4.9★) near State Farm Stadium. Sports bars, retail & entertainment venues trust us for high-energy campaigns (480) 244-6470"
       path="/glendale"
-      schemaData={getLocalBusinessSchema("Glendale", "Arizona", glendaleData.geoCoordinates)}
+      schemaData={[
+        getLocalBusinessSchema("Glendale", "Arizona", glendaleData.geoCoordinates),
+        getFAQSchema(getCityFAQs("Glendale"))
+      ]}
     >
       <Suspense fallback={<LoadingSpinner />}>
         <GlendalePage onContactClick={() => navigate('/contact')} />

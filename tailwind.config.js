@@ -7,6 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
+        // RE-AGENCY Brand Colors
+        'brand': {
+          'black': '#000000',
+          'charcoal': '#0E0E10',
+          'blue': '#2D8CFF',
+          'cyan': '#33F2FF',
+          'white': '#FFFFFF',
+        },
+        // shadcn/ui colors
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -45,6 +54,11 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      boxShadow: {
+        'glow-blue': '0 0 20px rgba(45, 140, 255, 0.5)',
+        'glow-blue-lg': '0 0 30px rgba(45, 140, 255, 0.6)',
+        'glow-cyan': '0 0 20px rgba(51, 242, 255, 0.5)',
       },
       keyframes: {
         'accordion-down': {
